@@ -1,0 +1,40 @@
+[
+    {
+        "Id": 0,
+        "Name": "John",
+        "Surname": "Doe",
+        "Age": 30,
+        "Tlf": []
+    },
+
+    {
+        "Id": 1,
+        "Name": "Jane",
+        "Surname": "Smith",
+        "Age": 25,
+        "Tlf": ["0123456789", "9876543210"]
+    },
+
+    {
+        "Id": 2,
+        "Name": "Bob",
+        "Surname": "Johnson",
+        "Age": 45,
+        "Tlf": ["1234567890"]
+    },
+
+    {
+        "Id": 3,
+        "Name": "Alice",
+        "Surname": "Williams",
+        "Age": 32,
+        "Tlf": ["0987654321"]
+    },
+    {
+        "Id": 4,
+        "Name": "Charlie",
+        "Surname": "Brown",
+        "Age": 28,
+        "Tlf": ["6623444324","2131321332","2062679823"]
+    }
+]
