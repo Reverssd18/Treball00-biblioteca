@@ -1,5 +1,4 @@
 [
-    {
     "id": 1000,
     "titol": "El Principito",
     "autor": "Antoine de Saint-Exupéry"
@@ -28,5 +27,4 @@
     "titol": "El Alquimista",
     "autor": "Paulo Coelho"      
     }
-
 ]
