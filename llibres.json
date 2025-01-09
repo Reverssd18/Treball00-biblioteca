@@ -1,5 +1,34 @@
-{
-    "id": 23456765432,
+
+
+[
+    {
+    "id": 1000,
     "titol": "nom de llibre",
-    "autor": "nom llibres.jsode autor"
-}
+    "autor": "nom autor"
+    },
+
+    {
+    "id": 1001,
+    "titol": "nom de llibre",
+    "autor": "nom autor"
+    },
+
+    {
+    "id": 1002, 
+    "titol": "nom de llibre",
+    "autor": "nom autor"
+    },
+
+    {
+    "id": 1003,
+    "titol": "nom de llibre",
+    "autor": "nom autor"
+    },
+
+    {
+    "id": 1004,
+    "titol": "nom de llibre",
+    "autor": "nom autor"      
+    }
+
+]
