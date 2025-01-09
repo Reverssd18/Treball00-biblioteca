@@ -1,0 +1,29 @@
+   {
+    "id": 1000,
+    "titol": "El Principito",
+    "autor": "Antoine de Saint-Exupéry"
+    },
+
+    {
+    "id": 1001,
+    "titol": "Don Quijote",
+    "autor": "Miguel de Cervantes"
+    },
+
+    {
+    "id": 1002, 
+    "titol": "Diario de Ana Frank",
+    "autor": "Anne Frank"
+    },
+
+    {
+    "id": 1003,
+    "titol": "EL Arte de la Guerra",
+    "autor": "Sun Tzu"
+    },
+
+    {
+    "id": 1004,
+    "titol": "El Alquimista",
+    "autor": "Paulo Coelho"      
+    }
