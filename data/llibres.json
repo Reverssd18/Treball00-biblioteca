@@ -2,30 +2,35 @@
     {
     "id": 1000,
     "titol": "El Principito",
-    "autor": "Antoine de Saint-Exupéry"
+    "autor": "Antoine de Saint-Exupéry",
+    "genre": "Fable"
     },
 
     {
     "id": 1001,
     "titol": "Don Quijote",
-    "autor": "Miguel de Cervantes"
+    "autor": "Miguel de Cervantes",
+    "genre": "Novel"
     },
 
     {
     "id": 1002, 
     "titol": "Diario de Ana Frank",
-    "autor": "Anne Frank"
+    "autor": "Anne Frank",
+    "genre": "Bibliography"
     },
 
     {
     "id": 1003,
     "titol": "EL Arte de la Guerra",
-    "autor": "Sun Tzu"
+    "autor": "Sun Tzu",
+    "genre": "Non-fiction"
     },
 
     {
     "id": 1004,
     "titol": "El Alquimista",
-    "autor": "Paulo Coelho"      
+    "autor": "Paulo Coelho",
+    "genre": "Novel"    
     }
 ]
