@@ -1,6 +1,6 @@
 package com.biblioteca;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
