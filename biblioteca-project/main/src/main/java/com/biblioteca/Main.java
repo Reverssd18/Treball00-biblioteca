@@ -1,8 +1,8 @@
-package src.main.java.com.biblioteca;
+package com.biblioteca;
 
 import java.util.*;
 
-public class main {
+public class Main {
     static Scanner scanner = new Scanner(System.in);
     public static String menuPrincipal() {
         try {
