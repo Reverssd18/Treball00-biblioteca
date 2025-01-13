@@ -10,23 +10,13 @@ public class Main {
        String opc = scanner.nextLine().toLowerCase();
        scanner.close();
        try {
-            switch (opc) {
-                case "0":
-                case "sortir":
-                    return () -> sortir();
-                case "1":
-                case "llibres":
-                    return () -> menuLlibres();
-                case "2":
-                case "modificar":
-                    return () -> sortir();
-                case "3":
-                case "prestecs":
-                case "préstecs":
-                    return () -> menuPrestecs();
-                default:         
-                    return () -> error();
-            }
+           return switch (opc) {
+               case "0", "sortir" -> () -> sortir();
+               case "1", "llibres" -> () -> menuLlibres();
+               case "2", "modificar" -> () -> sortir();
+               case "3", "prestecs", "préstecs" -> () -> menuPrestecs();
+               default -> () -> error();
+           };
             
         } catch (Exception e) {
             System.out.println("Opció no vàlida. Torna a probar.");
@@ -40,26 +30,14 @@ public class Main {
         String opc = scanner.nextLine().toLowerCase();
         scanner.close();
         try {
-            switch (opc) {
-                case "0":
-                case "tornar":
-                    return () -> tornar();
-                case "1":
-                case "afegir":
-                    return () -> afegirLlibres();
-
-                case "2":
-                case "modificar":
-                    return () -> modificarLibres();
-                case "3":
-                case "eliminar":
-                    return () -> eliminarLlibres();
-                case "4":
-                case "listar":
-                    return () -> llistarLlibres();
-                default:
-                    return () -> error();
-            }
+            return switch (opc) {
+                case "0", "tornar" -> () -> tornar();
+                case "1", "afegir" -> () -> afegirLlibres();
+                case "2", "modificar" -> () -> modificarLibres();
+                case "3", "eliminar" -> () -> eliminarLlibres();
+                case "4", "listar" -> () -> llistarLlibres();
+                default -> () -> error();
+            };
         } catch (Exception e) {
             System.out.println("Opció no vàlida. Torna a probar.");
             return menuLlibres();
