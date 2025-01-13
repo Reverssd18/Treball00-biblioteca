@@ -6,37 +6,35 @@ import java.util.Scanner;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     public static Runnable menuPrincipal() {
-       System.out.println("Gestió de biblioteca");
-       System.out.print("1. Llibres\n2. Usuaris\n3. Préstecs\n0. Sortir\nEscull una opció:  ");
-       String opc = scanner.nextLine().toLowerCase();
-       scanner.close();
-       try {
-           return switch (opc) {
-               case "0", "sortir" -> () -> sortir();
-               case "1", "llibres" -> () -> menuLlibres();
-               case "2", "modificar" -> () -> sortir();
-               case "3", "prestecs", "préstecs" -> () -> menuPrestecs();
-               default -> () -> error();
-           };
-            
+        System.out.println("Gestió de biblioteca");
+        System.out.print("1. Llibres\n2. Usuaris\n3. Préstecs\n0. Sortir\nEscull una opció:  ");
+        String opc = scanner.nextLine().toLowerCase();
+        try {
+            return switch (opc) {
+                case "0", "sortir" -> () -> sortir();
+                case "1", "llibres" -> () -> menuLlibres();
+                case "2", "usuaris" -> () -> menuUsuaris();
+                case "3", "prestecs", "préstecs" -> () -> menuPrestecs();
+                default -> () -> error();
+            };
         } catch (Exception e) {
             System.out.println("Opció no vàlida. Torna a probar.");
             return menuPrincipal();
         }
     }
 
+
     public static Runnable menuLlibres() {
         System.out.println("Gestió de llibres");
         System.out.print("1. Afegir llibre\n2. Modificar llibre\n3. Eliminar llibre\n4. Listar llibre\n0. Tornar al menú principal\nEscull una opció:  ");
         String opc = scanner.nextLine().toLowerCase();
-        scanner.close();
         try {
             return switch (opc) {
                 case "0", "tornar" -> () -> tornar();
                 case "1", "afegir" -> () -> afegirLlibres();
                 case "2", "modificar" -> () -> modificarLibres();
                 case "3", "eliminar" -> () -> eliminarLlibres();
-                case "4", "listar" -> () -> llistarLlibres();
+                case "4", "llistar" -> () -> llistarLlibres();
                 default -> () -> error();
             };
         } catch (Exception e) {
@@ -49,18 +47,17 @@ public class Main {
         System.out.println("Gestió de Prestecs");
         System.out.print("1. Afegir préstec\n2. Modificar préstec\n3. Eliminar préstec\n4. Listar préstec\n0. Tornar al menú principal\nEscull una opció:  ");
         String opc = scanner.nextLine().toLowerCase();
-        scanner.close();
         try {
             return switch (opc) {
-                case "0", "tornar" -> () -> tornar();
+                case "0", "tornar" -> () -> menuPrincipal().run();
                 case "1", "afegir" -> () -> afegirPrestecs();
                 case "2", "modificar" -> () -> modificarPrestecs();
                 case "3", "eliminar" -> () -> eliminarPrestecs();
-                case "4", "listar" -> () -> llistarPrestecs();
+                case "4", "llistar" -> () -> llistarPrestecs();
                 default -> () -> error();
             };
         } catch (Exception e) {
-            System.out.println("Opció no vàlida. Torna a probar.");
+            System.out.println("Opció no vàlida. Torna a provar.");
             return menuPrestecs();
         }
     }
@@ -69,35 +66,23 @@ public class Main {
         System.out.println("Gestió de Prestecs");
         System.out.print("1. Afegir usuaris\n2. Modificar usuaris\n3. Eliminar usuaris\n4. Listar usuaris\n0. Tornar al menú principal\nEscull una opció:  ");
         String opc = scanner.nextLine().toLowerCase();
-        scanner.close();
         try {
-            switch (opc) {
-                case "0":
-                case "tornar":
-                    return () -> tornar();
-                case "1":
-                case "afegir":
-                    return () -> afegirUsuaris();
-                case "2":
-                case "modificar":
-                    return () -> modificarUsuaris();
-                case "3":
-                case "eliminar":
-                    return () -> eliminarUsuaris();
-                case "4":
-                case "listar":
-                    return () -> llistarUsuaris();
-                default:
-                    return () -> error();
-            }
+            return switch (opc) {
+                case "0", "tornar" -> () -> menuPrincipal().run();
+                case "1", "afegir" -> () -> afegirUsuaris();
+                case "2", "modificar" -> () -> modificarUsuaris();
+                case "3", "eliminar" -> () -> eliminarUsuaris();
+                case "4", "listar" -> () -> llistarUsuaris();
+                default -> () -> error();
+            };
         } catch (Exception e) {
-            System.out.println("Opció no vàlida. Torna a probar.");
+            System.out.println("Opció no vàlida. Torna a provar.");
             return menuUsuaris();
         }
     }
 
     public static void main (String[] args) { 
-        menuPrincipal();
+        menuPrincipal().run();
 }
 
     
