@@ -50,25 +50,14 @@ public class Main {
         String opc = scanner.nextLine().toLowerCase();
         scanner.close();
         try {
-            switch (opc) {
-                case "0":
-                case "tornar":
-                    return () -> tornar();
-                case "1":
-                case "afegir":
-                    return () -> afegirPrestecs();
-                case "2":
-                case "modificar":
-                    return () -> modificarPrestecs();
-                case "3":
-                case "eliminar":
-                    return () -> eliminarPrestecs();
-                case "4":
-                case "listar":
-                    return () -> llistarPrestecs();
-                default:
-                    return () -> error();
-            }
+            return switch (opc) {
+                case "0", "tornar" -> () -> tornar();
+                case "1", "afegir" -> () -> afegirPrestecs();
+                case "2", "modificar" -> () -> modificarPrestecs();
+                case "3", "eliminar" -> () -> eliminarPrestecs();
+                case "4", "listar" -> () -> llistarPrestecs();
+                default -> () -> error();
+            };
         } catch (Exception e) {
             System.out.println("Opció no vàlida. Torna a probar.");
             return menuLlibres();
