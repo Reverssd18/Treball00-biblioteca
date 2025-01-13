@@ -141,55 +141,54 @@ public class Main {
     public static void sortir() {
         System.exit(0);
     }
+    public static void tornar() {
+        menuPrincipal();
+    }
 
-public static Runnable menuUsuaris() {
-    System.out.println("Gestió de llibres");
-    System.out.print("1. Afegir usuari\n2. Modificar usuari\n3. Eliminar usuari\n4. Listar usuari\n0. Tornar al menú principal\nEscull una opció:  ");
-    String opc = scanner.nextLine().toLowerCase();
-    scanner.close();
-    try {
-        switch (opc) {
-            case "0":
-            case "atras":
-                return () -> tornar();
-            case "1":
-            case "afegir":
-                return () -> afegirUsuaris();
-
-            case "2":
-            case "modificar":
-                return () -> modificarUsuaris();
-            case "3":
-            case "eliminar":
-                return () -> eliminarUsuaris();
-            case "4":
-            case "listar":
-                return () -> llistarUsuaris();
-            default:
-                return () -> error();
+    public static Runnable menuUsuaris() {
+        System.out.println("Gestió de Prestecs");
+        System.out.print("1. Afegir préstec\n2. Modificar préstec\n3. Eliminar préstec\n4. Listar préstec\n0. Tornar al menú principal\nEscull una opció:  ");
+        String opc = scanner.nextLine().toLowerCase();
+        scanner.close();
+        try {
+            switch (opc) {
+                case "0":
+                case "tornar":
+                    return () -> tornar();
+                case "1":
+                case "afegir":
+                    return () -> afegirUsuaris();
+                case "2":
+                case "modificar":
+                    return () -> modificarUsuaris();
+                case "3":
+                case "eliminar":
+                    return () -> eliminarUsuaris();
+                case "4":
+                case "listar":
+                    return () -> llistarUsuaris();
+                default:
+                    return () -> error();
+            }
+        } catch (Exception e) {
+            System.out.println("Opció no vàlida. Torna a probar.");
+            return menuLlibres();
         }
-    } catch (Exception e) {
-        System.out.println("Opció no vàlida. Torna a probar.");
-        return menuLlibres();
+    }
+
+
+    public static void afegirUsuaris() {
+        System.out.println("Afegir préstec");
+    }
+    public static void modificarUsuaris() {
+        System.out.println("Modificar préstec");
+    }
+
+    public static void eliminarUsuaris() {
+        System.out.println("Eliminar préstec");
+    }
+
+    public static void llistarUsuaris() {
+        System.out.println("Listar préstecs");
     }
 }
-
-public static void afegirUsuaris() {
-    System.out.println("Afegir usuari");
-}
-
-public static void modificarUsuaris() {
-    System.out.println("Modificar usuari");
-}
-
-public static void eliminarUsuaris() {
-    System.out.println("Eliminar usuari");
-}
-
-public static void llistarUsuaris() {
-    System.out.println("Llistar usuari ");
-}
-
-}
-
-
