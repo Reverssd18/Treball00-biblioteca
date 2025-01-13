@@ -142,7 +142,7 @@ public static void eliminarUsuaris() {
 }
 
 public static void llistarUsuaris() {
-    System.out.println("Llistar usuari");
+    System.out.println("Llistar usuari ");
 }
 
 }
