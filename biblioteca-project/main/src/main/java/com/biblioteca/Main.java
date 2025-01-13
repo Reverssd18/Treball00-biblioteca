@@ -23,7 +23,7 @@ public class Main {
                 case "3":
                 case "prestecs":
                 case "préstecs":
-                    return () -> sortir();
+                    return () -> menuPrestecs();
                 default:         
                     return () -> error();
             }
