@@ -15,7 +15,7 @@ public class Main {
                 case 0 -> {
                 }
                 case 1 -> {
-                    return "llibres";
+                    return "";
                 }
                 case 2 -> {
                     return "usuaris";
