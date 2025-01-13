@@ -46,17 +46,17 @@ public class Main {
                     return () -> tornar();
                 case "1":
                 case "afegir":
-                    return () -> afegir();
+                    return () -> afegirLlibres();
 
                 case "2":
                 case "modificar":
-                    return () -> modificar();
+                    return () -> modificarLibres();
                 case "3":
                 case "eliminar":
-                    return () -> eliminar();
+                    return () -> eliminarLlibres();
                 case "4":
                 case "listar":
-                    return () -> listar();
+                    return () -> listarLlibres();
                 default:
                     return () -> error();
             }
@@ -74,19 +74,19 @@ public class Main {
         menuPrincipal();
     }
 
-    public static void afegir() {
+    public static void afegirLlibres() {
         System.out.println("Afegir llibre");
     }
 
-    public static void modificar() {
+    public static void modificarLibres() {
         System.out.println("Modificar llibre");
     }
 
-    public static void eliminar() {
+    public static void eliminarLlibres() {
         System.out.println("Eliminar llibre");
     }
 
-    public static void listar() {
+    public static void listarLlibres() {
         System.out.println("Listar llibre");
     }
 
