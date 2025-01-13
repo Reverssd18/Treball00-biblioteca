@@ -63,6 +63,38 @@ public class Main {
             return menuLlibres();
         }
     }
+
+    public static Runnable menuUsuaris() {
+        System.out.println("Gestió de Prestecs");
+        System.out.print("1. Afegir préstec\n2. Modificar préstec\n3. Eliminar préstec\n4. Listar préstec\n0. Tornar al menú principal\nEscull una opció:  ");
+        String opc = scanner.nextLine().toLowerCase();
+        scanner.close();
+        try {
+            switch (opc) {
+                case "0":
+                case "tornar":
+                    return () -> tornar();
+                case "1":
+                case "afegir":
+                    return () -> afegirUsuaris();
+                case "2":
+                case "modificar":
+                    return () -> modificarUsuaris();
+                case "3":
+                case "eliminar":
+                    return () -> eliminarUsuaris();
+                case "4":
+                case "listar":
+                    return () -> llistarUsuaris();
+                default:
+                    return () -> error();
+            }
+        } catch (Exception e) {
+            System.out.println("Opció no vàlida. Torna a probar.");
+            return menuLlibres();
+        }
+    }
+
     public static void main (String[] args) { 
         menuPrincipal();
 }
@@ -112,5 +144,19 @@ public class Main {
         menuPrincipal();
     }
 
+    public static void afegirUsuaris() {
+        System.out.println("Afegir usuaris");
+    }
+    public static void modificarUsuaris() {
+        System.out.println("Modificar usuaris");
+    }
+
+    public static void eliminarUsuaris() {
+        System.out.println("Eliminar usuaris");
+    }
+
+    public static void llistarUsuaris() {
+        System.out.println("Listar usuaris");
+    }
 
 }
