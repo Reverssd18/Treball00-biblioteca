@@ -60,13 +60,13 @@ public class Main {
             };
         } catch (Exception e) {
             System.out.println("Opció no vàlida. Torna a probar.");
-            return menuLlibres();
+            return menuPrestecs();
         }
     }
 
     public static Runnable menuUsuaris() {
         System.out.println("Gestió de Prestecs");
-        System.out.print("1. Afegir préstec\n2. Modificar préstec\n3. Eliminar préstec\n4. Listar préstec\n0. Tornar al menú principal\nEscull una opció:  ");
+        System.out.print("1. Afegir usuaris\n2. Modificar usuaris\n3. Eliminar usuaris\n4. Listar usuaris\n0. Tornar al menú principal\nEscull una opció:  ");
         String opc = scanner.nextLine().toLowerCase();
         scanner.close();
         try {
@@ -91,7 +91,7 @@ public class Main {
             }
         } catch (Exception e) {
             System.out.println("Opció no vàlida. Torna a probar.");
-            return menuLlibres();
+            return menuUsuaris();
         }
     }
 
@@ -104,6 +104,7 @@ public class Main {
     // LLIBRES //
     public static void afegirLlibres() {
         System.out.println("Afegir llibre");
+
     }
 
     public static void modificarLibres() {
