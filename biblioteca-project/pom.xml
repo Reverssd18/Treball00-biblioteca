@@ -21,14 +21,6 @@
             <version>chargebee-1.0</version>
         </dependency>
 
-
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20250107</version>
-        </dependency>
-
-
     </dependencies>
 </project>
 
