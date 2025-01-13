@@ -35,4 +35,63 @@ public class Main {
     public static void main (String[] args) { 
             menuPrincipal();
     }
+
+    public static String menuLlibres() {
+        System.out.print("1. Afegir llibre\n2. Modificar llibre\n3. Eliminar llibre\n4. Listar llibre\n0. Tornar al menú principal\n");
+        String opc = scanner.nextLine().toLowerCase();
+        try {
+            switch (opc) {
+                case "0":
+                    return () -> atras();
+                case "1":
+                case "afegir":
+                    return () -> afegir();
+
+                case "2":
+                case "modificar":
+                    return () -> modificar();
+                case "3":
+                case "eliminar":
+                    return () -> eliminar();
+                case "4":
+                case "listar":
+                    return () -> listar();
+                    default:
+                        return () -> error();
+            }
+            scanner.close();
+        } catch (Exception e) {
+            System.out.println("Opció no vàlida. Torna a probar.");
+            return menuLlibres();
+        }
+        
+        return "";
+    }
+    public static void atras() {
+        menuPrincipal();
+    }
+
+    public static void afegir() {
+        System.out.println("Afegir llibre");
+    }
+
+    public static void modificar() {
+        System.out.println("Modificar llibre");
+    }
+
+    public static void eliminar() {
+        System.out.println("Eliminar llibre");
+    }
+
+    public static void listar() {
+        System.out.println("Listar llibre");
+    }
+
+    public static void error() {
+        System.out.println("Opció no vàlida. Torna a probar.");
+    }
+
+
+    
+
 }
