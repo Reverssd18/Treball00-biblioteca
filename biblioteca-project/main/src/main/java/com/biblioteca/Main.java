@@ -97,6 +97,54 @@ public class Main {
         System.exit(0);
     }
 
+public static Runnable menuUsuaris() {
+    System.out.println("Gestió de llibres");
+    System.out.print("1. Afegir usuari\n2. Modificar usuari\n3. Eliminar usuari\n4. Listar usuari\n0. Tornar al menú principal\nEscull una opció:  ");
+    String opc = scanner.nextLine().toLowerCase();
+    scanner.close();
+    try {
+        switch (opc) {
+            case "0":
+            case "atras":
+                return () -> tornar();
+            case "1":
+            case "afegir":
+                return () -> afegirUsuaris();
 
+            case "2":
+            case "modificar":
+                return () -> modificarUsuaris();
+            case "3":
+            case "eliminar":
+                return () -> eliminarUsuaris();
+            case "4":
+            case "listar":
+                return () -> llistarUsuaris();
+            default:
+                return () -> error();
+        }
+    } catch (Exception e) {
+        System.out.println("Opció no vàlida. Torna a probar.");
+        return menuLlibres();
+    }
+}
+
+public static void afegirUsuaris() {
+    System.out.println("Afegir usuari");
+}
+
+public static void modificarUsuaris() {
+    System.out.println("Modificar usuari");
+}
+
+public static void eliminarUsuaris() {
+    System.out.println("Eliminar usuari");
+}
+
+public static void llistarUsuaris() {
+    System.out.println("Llistar usuari");
+}
 
 }
+
+
