@@ -36,12 +36,14 @@ public class Main {
             menuPrincipal();
     }
 
-    public static String menuLlibres() {
+    public static Runnable menuLlibres() {
         System.out.print("1. Afegir llibre\n2. Modificar llibre\n3. Eliminar llibre\n4. Listar llibre\n0. Tornar al menú principal\n");
         String opc = scanner.nextLine().toLowerCase();
+        scanner.close();
         try {
             switch (opc) {
                 case "0":
+                case "atras":
                     return () -> atras();
                 case "1":
                 case "afegir":
@@ -59,13 +61,10 @@ public class Main {
                     default:
                         return () -> error();
             }
-            scanner.close();
         } catch (Exception e) {
             System.out.println("Opció no vàlida. Torna a probar.");
             return menuLlibres();
         }
-        
-        return "";
     }
     public static void atras() {
         menuPrincipal();
@@ -92,6 +91,6 @@ public class Main {
     }
 
 
-    
+
 
 }
