@@ -178,17 +178,17 @@ public class Main {
 
 
     public static void afegirUsuaris() {
-        System.out.println("Afegir préstec");
+        System.out.println("Afegir usuaris");
     }
     public static void modificarUsuaris() {
-        System.out.println("Modificar préstec");
+        System.out.println("Modificar usuaris");
     }
 
     public static void eliminarUsuaris() {
-        System.out.println("Eliminar préstec");
+        System.out.println("Eliminar usuaris");
     }
 
     public static void llistarUsuaris() {
-        System.out.println("Listar préstecs");
+        System.out.println("Listar usuaris");
     }
 }
