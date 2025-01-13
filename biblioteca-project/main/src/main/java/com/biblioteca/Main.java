@@ -19,11 +19,11 @@ public class Main {
                     return () -> menuLlibres();
                 case "2":
                 case "modificar":
-                    return () -> menuUsuaris();
+                    return () -> sortir();
                 case "3":
                 case "prestecs":
                 case "préstecs":
-                    return () -> menuPrestecs();
+                    return () -> sortir();
                 default:         
                     return () -> error();
             }
