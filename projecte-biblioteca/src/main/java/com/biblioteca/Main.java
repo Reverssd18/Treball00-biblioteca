@@ -1,6 +1,13 @@
 package com.biblioteca;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 public class Main {
@@ -33,7 +40,7 @@ public class Main {
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0":
-                case "tornar": {return; }
+                case "tornar": menuPrincipal();
                 case "1":
                 case "afegir": afegirLlibres();
                 case "2":
@@ -54,7 +61,7 @@ public class Main {
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0":
-                case "tornar": {return; }
+                case "tornar": menuPrincipal();
                 case "1":
                 case "afegir": afegirPrestecs();
                 case "2":
@@ -75,7 +82,7 @@ public class Main {
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0":
-                case "tornar": {return; }
+                case "tornar": menuPrincipal();
                 case "1":
                 case "afegir": afegirUsuaris();
                 case "2":
@@ -94,10 +101,56 @@ public class Main {
     }
 
     // menu-functions
-    public static void afegirLlibres() {
+public static void afegirLlibres() {
         System.out.println("Afegir llibre");
-    }
+        System.out.println("Introdueix l'ID del llibre: ");
+        String id = scanner.nextLine();
+        System.out.println("Introdueix el títol del llibre: ");
+        String titol = scanner.nextLine();
+        System.out.println("Introdueix l'autor del llibre: ");
+        String autor = scanner.nextLine();
+        System.out.println("Introdueix el genre del llibre: ");
+        String genre = scanner.nextLine();
 
+        // creamos un JSONObject con los datos del nuevo libro
+        JSONObject nouLlibre = new JSONObject();
+        nouLlibre.put("id", id);
+        nouLlibre.put("titol", titol);
+        nouLlibre.put("autor", autor);
+        nouLlibre.put("genre", genre);
+
+
+        // ruta del archivo json
+        String ruta = "projecte-biblioteca/data/llibres.json";
+
+        // leemos el archivo json y lo convertimos en un array
+        JSONArray llibres = new JSONArray();
+
+        // leemos el archivo json
+        try {
+            File file = new File(ruta);
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of(ruta)));
+                llibres = new JSONArray(content);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+
+
+        // añadimos el nuevo libro a la lista
+        llibres.put(nouLlibre);
+
+        // guardamos la lista actualizada en el archivo json
+        try (FileWriter writer = new FileWriter(ruta)) { // usamos try with resources para cerrar el archivo
+            writer.write(llibres.toString(4)); // usamos el 4 para que se vea bonito
+        } catch (Exception e) {
+            System.out.println("Error al escriure el fitxer");
+        }
+
+        System.out.println("Llibre afegit correctament");
+    }
     public static void modificarLlibres() {
         System.out.println("Modificar llibre");
     }

@@ -1,36 +1,38 @@
 [
     {
-    "id": 1000,
-    "titol": "El Principito",
-    "autor": "Antoine de Saint-Exupéry",
-    "genre": "Fable"
+        "titol": "El Principito",
+        "genre": "Fable",
+        "id": 1000,
+        "autor": "Antoine de Saint-Exupéry"
     },
-
     {
-    "id": 1001,
-    "titol": "Don Quijote",
-    "autor": "Miguel de Cervantes",
-    "genre": "Novel"
+        "titol": "Don Quijote",
+        "genre": "Novel",
+        "id": 1001,
+        "autor": "Miguel de Cervantes"
     },
-
     {
-    "id": 1002, 
-    "titol": "Diario de Ana Frank",
-    "autor": "Anne Frank",
-    "genre": "Bibliography"
+        "titol": "Diario de Ana Frank",
+        "genre": "Bibliography",
+        "id": 1002,
+        "autor": "Anne Frank"
     },
-
     {
-    "id": 1003,
-    "titol": "EL Arte de la Guerra",
-    "autor": "Sun Tzu",
-    "genre": "Non-fiction"
+        "titol": "EL Arte de la Guerra",
+        "genre": "Non-fiction",
+        "id": 1003,
+        "autor": "Sun Tzu"
     },
-
     {
-    "id": 1004,
-    "titol": "El Alquimista",
-    "autor": "Paulo Coelho",
-    "genre": "Novel"    
+        "titol": "El Alquimista",
+        "genre": "Novel",
+        "id": 1004,
+        "autor": "Paulo Coelho"
+    },
+    {
+        "titol": "Los 100 ",
+        "genre": "Action",
+        "id": "1009",
+        "autor": "Clarck Kent"
     }
 ]
