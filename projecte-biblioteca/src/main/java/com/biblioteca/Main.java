@@ -2,6 +2,7 @@ package com.biblioteca;
 
 import java.util.Scanner;
 
+
 public class Main {
     static Scanner scanner = new Scanner(System.in);
 
@@ -70,7 +71,7 @@ public class Main {
     public static void menuUsuaris() {
         while (true) {
             System.out.println("\n---Gestió de Usuaris---");
-            System.out.print("1. Afegir usuaris\n2. Modificar usuaris\n3. Eliminar usuaris\n4. Listar usuaris\n0. Tornar al menú principal\nEscull una opció:  ");
+            System.out.print("1. Afegir usuaris\n2. Modificar usuaris\n3. Eliminar usuaris\n4. Llistar usuaris\n0. Tornar al menú principal\nEscull una opció:  ");
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0":
