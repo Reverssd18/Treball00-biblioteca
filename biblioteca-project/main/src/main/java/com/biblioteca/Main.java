@@ -1,5 +1,8 @@
 package com.biblioteca;
 
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -104,6 +107,56 @@ public class Main {
     // LLIBRES //
     public static void afegirLlibres() {
         System.out.println("Afegir llibre");
+        System.out.println("Introdueix l'ID del llibre: ");
+        String id = scanner.nextLine();
+        System.out.println("Introdueix el títol del llibre: ");
+        String titol = scanner.nextLine();
+        System.out.println("Introdueix l'autor del llibre: ");
+        String autor = scanner.nextLine();
+        System.out.println("Introdueix el genre del llibre: ");
+        String genre = scanner.nextLine();
+
+        Llibre nouLlibre = new Llibre(id, titol, autor, genre);
+
+        String ruta = "biblioteca-project/main/data/llibres.json";
+
+        // leemos el archivo json
+        List<Llibre> llibres = new ArrayList<>();
+        try (FileReader reader = new FileReader(ruta)) {
+            Type listType = new TypeToken<ArrayList<Llibre>>() {}.getType();
+            llibres = new Gson().fromJson(reader, listType);
+            if (llibres == null) {
+                llibres = new ArrayList<>();
+            }
+        } catch (Exception e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+
+        // añadimos el nuevo libro a la lista
+        llibres.add(nouLlibre);
+
+        // guardamos la lista actualizada en el archivo json
+        try (FileWriter writer = new FileWriter(ruta)) {
+            new Gson().toJson(llibres, writer);
+        } catch (Exception e) {
+            System.out.println("Error al escriure el fitxer");
+        }
+
+    }
+
+    // classe para representar un llibre
+    public class Llibre {
+        private String id;
+        private String titol;
+        private String autor;
+        private String genre;
+
+        public Llibre(String id, String titol, String autor, String genre) {
+            this.id = id;
+            this.titol = titol;
+            this.autor = autor;
+            this.genre = genre;
+        }
     }
 
     public static void modificarLibres() {
