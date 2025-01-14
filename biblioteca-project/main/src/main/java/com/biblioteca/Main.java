@@ -5,6 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Files;
+
+
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     public static Runnable menuPrincipal() {
@@ -116,47 +126,44 @@ public class Main {
         System.out.println("Introdueix el genre del llibre: ");
         String genre = scanner.nextLine();
 
-        Llibre nouLlibre = new Llibre(id, titol, autor, genre);
+        // creamos un objecto json para el nuevo libro
+        JSONObject nouLlibre = new JSONObject();
+        nouLlibre.put("id", id);
+        nouLlibre.put("titol", titol);
+        nouLlibre.put("autor", autor);
+        nouLlibre.put("genre", genre);
 
+
+        // ruta del archivo json
         String ruta = "biblioteca-project/main/data/llibres.json";
 
+        // leemos el archivo json y lo convertimos en un array
+        JSONArray llibres = new JSONArray();
+
         // leemos el archivo json
-        List<Llibre> llibres = new ArrayList<>();
-        try (FileReader reader = new FileReader(ruta)) {
-            Type listType = new TypeToken<ArrayList<Llibre>>() {}.getType();
-            llibres = new Gson().fromJson(reader, listType);
-            if (llibres == null) {
-                llibres = new ArrayList<>();
+        try {
+            File file = new File(ruta);
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of(ruta)));
+                llibres = new JSONArray(content);
             }
+
         } catch (Exception e) {
             System.out.println("Error al llegir el fitxer");
         }
 
+
         // añadimos el nuevo libro a la lista
-        llibres.add(nouLlibre);
+        llibres.put(nouLlibre);
 
         // guardamos la lista actualizada en el archivo json
-        try (FileWriter writer = new FileWriter(ruta)) {
-            new Gson().toJson(llibres, writer);
+        try (FileWriter writer = new FileWriter(ruta)) { // usamos try with resources para cerrar el archivo
+            writer.write(llibres.toString(4)); // usamos el 4 para que se vea bonito
         } catch (Exception e) {
             System.out.println("Error al escriure el fitxer");
         }
 
-    }
-
-    // classe para representar un llibre
-    public class Llibre {
-        private String id;
-        private String titol;
-        private String autor;
-        private String genre;
-
-        public Llibre(String id, String titol, String autor, String genre) {
-            this.id = id;
-            this.titol = titol;
-            this.autor = autor;
-            this.genre = genre;
-        }
+        System.out.println("Llibre afegit correctament");
     }
 
     public static void modificarLibres() {
