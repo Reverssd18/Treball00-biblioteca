@@ -283,6 +283,44 @@ public class Main {
 
     public static void eliminarLlibres() {
         System.out.println("Eliminar llibre");
+        System.out.println("Introdueix l'ID del llibre a eliminar: ");
+        Integer id = scanner.nextInt();
+        scanner.nextLine(); // limpiamos el buffer
+
+        // ruta del archivo json
+        String ruta = "projecte-biblioteca/data/llibres.json";
+
+        // declaramos un array para guardar los llibres
+        JSONArray llibres = new JSONArray();
+
+        // leemos el archivo json
+        try {
+            File file = new File(ruta);
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of(ruta)));
+                llibres = new JSONArray(content);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+
+        // buscamos el libro con el id introducido
+        for (int i = 0; i < llibres.length(); i ++) { // recorremos el array de llibres con un bucle for 
+            JSONObject llibre = llibres.getJSONObject(i); // obtenemos el objeto JSON de la posición i 
+            if (llibre.getInt("id") == id) { // si el id del libro existente es igual al id que el usuario a escrito 
+                llibres.remove(i); // eliminamos el libro del array
+                break; // salimos del bucle
+            }
+        }
+
+        // guardamos el array actualizado en el archivo json
+        try {
+            Files.write(Path.of(ruta), llibres.toString(4).getBytes());
+            System.out.println("Llibre eliminat correctament");
+        } catch (Exception e) {
+        }
+
+        menuPrincipal();
     }
 
 
