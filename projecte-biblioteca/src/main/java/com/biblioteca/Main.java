@@ -297,7 +297,7 @@ public class Main {
         try {
             File file = new File(ruta);
             if (file.exists()) {
-                String content = new String(Files.readAllBytes(Path.of(ruta)));
+                String content = new String(Files.readAllBytes(Path.of(ruta))); // leemos el archivo json
                 llibres = new JSONArray(content);
             }
         } catch (Exception e) {
@@ -315,7 +315,7 @@ public class Main {
 
         // guardamos el array actualizado en el archivo json
         try {
-            Files.write(Path.of(ruta), llibres.toString(4).getBytes());
+            Files.write(Path.of(ruta), llibres.toString(4).getBytes()); // escribimos el array en el archivo json
             System.out.println("Llibre eliminat correctament");
         } catch (Exception e) {
         }
