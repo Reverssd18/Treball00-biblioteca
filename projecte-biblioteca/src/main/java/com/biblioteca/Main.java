@@ -185,7 +185,7 @@ public class Main {
                 llibres = new JSONArray(content);
             }
 
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
             System.out.println("Error al llegir el fitxer");
         }
 
@@ -227,7 +227,7 @@ public class Main {
                 String content = new String(Files.readAllBytes(Path.of(ruta)));
                 llibres = new JSONArray(content);
             }
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
             System.out.println("Error al llegir el fitxer");
         }
 
@@ -273,7 +273,7 @@ public class Main {
         try {
             Files.write(Path.of(ruta), llibres.toString(4).getBytes());
             System.out.println("Llibre modificat correctament");
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
         }
 
         menuPrincipal();
