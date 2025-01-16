@@ -33,7 +33,7 @@ public class Main {
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0":
-                case "tornar": {return; }
+                case "tornar": menuPrincipal();
                 case "1":
                 case "afegir": afegirLlibres();
                 case "2":
@@ -54,7 +54,7 @@ public class Main {
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0":
-                case "tornar": {return; }
+                case "tornar":  menuPrincipal();
                 case "1":
                 case "afegir": afegirPrestecs();
                 case "2":
@@ -75,7 +75,7 @@ public class Main {
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0":
-                case "tornar": {return; }
+                case "tornar": menuPrincipal();
                 case "1":
                 case "afegir": afegirUsuaris();
                 case "2":
@@ -87,6 +87,12 @@ public class Main {
                 default: error();
             }
         }
+    }
+    public static String[] llibresLlista() {
+        String path = "projecte-biblioteca/data/llibres.json" ;
+        String[] llibres = {"llibre1", "llibre2", "llibre3"};
+        
+        return llibres;
     }
 
     public static void main(String[] args) {
