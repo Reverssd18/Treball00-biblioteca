@@ -2,17 +2,14 @@ package com.biblioteca;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import org.json.JSONArray;
 
 
 public class Main {
@@ -123,7 +120,6 @@ public class Main {
     }
 
     public static void afegirLlibres() {
-public static void afegirLlibres() {
         System.out.println("Afegir llibre");
         System.out.println("Introdueix l'ID del llibre: ");
         String id = scanner.nextLine();
