@@ -1,6 +1,6 @@
 [
     {
-        "titol": "El Principito",
+        "titol": "Principitoo",
         "genre": "Fable",
         "id": 1000,
         "autor": "Antoine de Saint-Exupéry"
@@ -30,9 +30,21 @@
         "autor": "Paulo Coelho"
     },
     {
-        "titol": "Los 100 ",
+        "titol": "Hush Hush",
         "genre": "Action",
-        "id": "1009",
-        "autor": "Clarck Kent"
+        "id": 1010,
+        "autor": "Rina Kent"
+    },
+    {
+        "titol": "Prueba",
+        "genre": "Ficcion",
+        "id": 1011,
+        "autor": "Carlos Enrique"
+    },
+    {
+        "titol": "Giant",
+        "genre": "Fable",
+        "id": 1012,
+        "autor": "Victor Palace"
     }
 ]

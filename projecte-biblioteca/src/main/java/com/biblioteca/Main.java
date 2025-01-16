@@ -104,7 +104,8 @@ public class Main {
 public static void afegirLlibres() {
         System.out.println("Afegir llibre");
         System.out.println("Introdueix l'ID del llibre: ");
-        String id = scanner.nextLine();
+        Integer id = scanner.nextInt();
+        scanner.nextLine(); // limpiamos el buffer
         System.out.println("Introdueix el títol del llibre: ");
         String titol = scanner.nextLine();
         System.out.println("Introdueix l'autor del llibre: ");
@@ -119,12 +120,41 @@ public static void afegirLlibres() {
         nouLlibre.put("autor", autor);
         nouLlibre.put("genre", genre);
 
+        if (titol.isEmpty() || autor.isEmpty() || genre.isEmpty()) {
+            System.out.println("Error: Has d'omplir tots els camps");
+            return;
+        }
+        if (id < 1000) {
+            System.out.println("Error: L'ID ha de ser mes gran de 1000");
+            return;
+        }
 
         // ruta del archivo json
         String ruta = "projecte-biblioteca/data/llibres.json";
 
         // leemos el archivo json y lo convertimos en un array
         JSONArray llibres = new JSONArray();
+
+        // leemos el archivo json
+        try {
+            File file = new File(ruta);
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of(ruta)));
+                llibres = new JSONArray(content);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+            
+        // Comprobamos si el ID ya existe
+        for (int i = 0; i < llibres.length(); i++) {
+            JSONObject llibre = llibres.getJSONObject(i);
+            if (llibre.getInt("id") == id) {
+                System.out.println("Error: Ja existeix un llibre amb aquest ID");
+                return;
+            }
+        }
 
         // leemos el archivo json
         try {
@@ -150,9 +180,88 @@ public static void afegirLlibres() {
         }
 
         System.out.println("Llibre afegit correctament");
+
+
+        menuPrincipal();
     }
+
+
     public static void modificarLlibres() {
+
         System.out.println("Modificar llibre");
+        System.out.println("Introdueix l'ID del llibre a modificar: ");
+        Integer id = scanner.nextInt();
+        scanner.nextLine(); // limpiamos el buffer
+
+        // ruta del archivo json
+        String ruta = "projecte-biblioteca/data/llibres.json";
+
+        // declaramos un array para guardar los llibres
+        JSONArray llibres = new JSONArray();
+
+        // leemos el archivo json
+        try {
+            File file = new File(ruta);
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of(ruta)));
+                llibres = new JSONArray(content);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+
+
+        // buscamos el libro con el id introducido
+        for (int i = 0; i < llibres.length(); i ++) { // recorremos el array de llibres con un bucle for 
+            // JSONObject llibre = llibres.getJSONObject(i); // obtenemos el objeto JSON de la posición i 
+            // Integer llibresId = llibre.getInt("id"); // obtenemos el id del libro
+            // if (llibresId.equals(id)) { // si el id del libro existente es igual al id que el usuario a escrito 
+            JSONObject llibre = llibres.getJSONObject(i); 
+            if (llibre.getInt("id") == id) {
+                System.out.println("Que vols modificar?");
+                System.out.println("1. Títol");
+                System.out.println("2. Autor");
+                System.out.println("3. Gènere");
+                System.out.println("0. Cancel·lar");
+                String opc = scanner.nextLine().toLowerCase().trim(); 
+                switch (opc) {
+                    case "0":
+                    case "cancel·lar": return; 
+                    case "1":
+                    case "títol": {
+                        System.out.println("Escriu el nou títol: ");
+                        String nouTitol = scanner.nextLine();
+                        llibre.put("titol", nouTitol); // actualizamos el valor del titulo
+                        break;
+                    }
+                    case "2":
+                    case "autor": {
+                        System.out.println("Escriu el nou autor: ");
+                        String nouAutor = scanner.nextLine();
+                        llibre.put("autor", nouAutor); // actualizamos el valor del autor
+                        break;
+                    }
+                    case "3":
+                    case "gènere":
+                        System.out.println("Escriu el nou gènere: ");
+                        String nouGènere = scanner.nextLine();
+                        llibre.put("genre", nouGènere); // actualizamos el valor del gènere
+                        break;
+                    default: {
+                        System.out.println("Opció no vàlida. Torna a provar.");
+                        return;
+                    }
+                }
+            }
+        } 
+        
+        try {
+            Files.write(Path.of(ruta), llibres.toString(4).getBytes());
+            System.out.println("Llibre modificat correctament");
+        } catch (Exception e) {
+        }
+
+        menuPrincipal();
     }
 
     public static void eliminarLlibres() {
