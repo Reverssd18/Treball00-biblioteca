@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -297,7 +298,7 @@ public class Main {
                 String content = new String(Files.readAllBytes(Path.of(ruta))); // leemos el archivo json
                 llibres = new JSONArray(content); // añadimos a libros el contenido del archivo json
             }
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
             System.out.println("Error al llegir el fitxer");
         }
 
@@ -314,7 +315,7 @@ public class Main {
         try {
             Files.write(Path.of(ruta), llibres.toString(4).getBytes()); // escribimos el array en el archivo json
             System.out.println("Llibre eliminat correctament");
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
         }
 
         menuPrincipal();} // volvemos al menú principal
@@ -340,7 +341,7 @@ public class Main {
                 String content = new String(Files.readAllBytes(Path.of(ruta)));
                 prestecs = new JSONArray(content);
             }
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
             System.out.println("Error al llegir el fitxer");
         }
 
@@ -359,7 +360,7 @@ public class Main {
                 String content = new String(Files.readAllBytes(Path.of(ruta)));
                 prestecs = new JSONArray(content);
             }
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
             System.out.println("Error al llegir el fitxer");
         }
 
