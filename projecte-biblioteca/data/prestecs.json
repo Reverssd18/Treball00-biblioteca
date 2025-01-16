@@ -1,8 +1,8 @@
 
-{
-    "prestecs": [
+[
         {
-            "id": 2000,
+            "idPrestec": 2000,
+            "idLlibre": 1003,
             "title": "El arte de la Guerra",
             "author": "Sun Tzu",
             "genre": "Non-fiction",
@@ -10,7 +10,8 @@
             "return_date": "2025-03-09"
         },
         {
-            "id": 2001,
+            "idPrestec": 2001,
+            "idLlibre": 1002,
             "title": "Diario de Ana Frank",
             "author": "Anne Frank",
             "genre": "Bibliography",
@@ -18,7 +19,8 @@
             "return_date": "2025-01-06"
         },
         {
-            "id": 2002,
+            "idPrestec": 2002,
+            "idLlibre": 1004,
             "title": "El Alquimista",
             "author": "Paulo Coelho",
             "genre": "Novel",
@@ -26,7 +28,8 @@
             "return_date": "2025-02-24"
         },
         {
-            "id": 2003,
+            "idPrestec": 2003,
+            "idLlibre": 1000,
             "title": "El Principito",
             "author": "Antoine de Saint-Exupéry",
             "genre": "Fable",
@@ -34,12 +37,12 @@
             "return_date": "2025-03-05"
         },
         {
-            "id": 2004,
+            "idPrestec": 2004,
+            "idLlibre": 1001,
             "title": "Don Quijote",
             "author": "Miguel de Cervantes",
             "genre": "Novel",
             "loan_date": "2025-01-07",
             "return_date": "2025-03-07"
         }
-    ]
-}
+]

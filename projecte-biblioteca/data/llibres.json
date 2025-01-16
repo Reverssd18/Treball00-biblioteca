@@ -2,31 +2,31 @@
     {
         "titol": "Principitoo",
         "genre": "Fable",
-        "id": 1000,
+        "idLlibre": 1000,
         "autor": "Antoine de Saint-Exupéry"
     },
     {
         "titol": "Don Quijote",
         "genre": "Novel",
-        "id": 1001,
+        "idLlibre": 1001,
         "autor": "Miguel de Cervantes"
     },
     {
         "titol": "Diario de Ana Frank",
         "genre": "Bibliography",
-        "id": 1002,
+        "idLlibre": 1002,
         "autor": "Anne Frank"
     },
     {
         "titol": "EL Arte de la Guerra",
         "genre": "Non-fiction",
-        "id": 1003,
+        "idLlibre": 1003,
         "autor": "Sun Tzu"
     },
     {
         "titol": "El Alquimista",
         "genre": "Novel",
-        "id": 1004,
+        "idLlibre": 1004,
         "autor": "Paulo Coelho"
     },
     {
@@ -38,13 +38,13 @@
     {
         "titol": "Prueba",
         "genre": "Ficcion",
-        "id": 1011,
+        "idLlibre": 1011,
         "autor": "Carlos Enrique"
     },
     {
         "titol": "Giant",
         "genre": "Fable",
-        "id": 1012,
+        "idLlibre": 1012,
         "autor": "Victor Palace"
     }
 ]

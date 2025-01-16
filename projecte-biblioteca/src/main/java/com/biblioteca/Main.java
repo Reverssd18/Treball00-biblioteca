@@ -170,7 +170,7 @@ public class Main {
         // Comprobamos si el ID ya existe
         for (int i = 0; i < llibres.length(); i++) {
             JSONObject llibre = llibres.getJSONObject(i);
-            if (llibre.getInt("id") == id) {
+            if (llibre.getInt("idLlibre") == id) {
                 System.out.println("Error: Ja existeix un llibre amb aquest ID");
                 return;
             }
@@ -237,7 +237,7 @@ public class Main {
             // Integer llibresId = llibre.getInt("id"); // obtenemos el id del libro
             // if (llibresId.equals(id)) { // si el id del libro existente es igual al id que el usuario a escrito 
             JSONObject llibre = llibres.getJSONObject(i); 
-            if (llibre.getInt("id") == id) {
+            if (llibre.getInt("idLlibre") == id) {
                 System.out.println("Que vols modificar?");
                 System.out.println("1. Títol");
                 System.out.println("2. Autor");
@@ -280,11 +280,93 @@ public class Main {
 
     public static void eliminarLlibres() {
         System.out.println("Eliminar llibre");
-    }
+        System.out.println("Introdueix l'ID del llibre a eliminar: ");
+        Integer id = scanner.nextInt();
+        scanner.nextLine(); // limpiamos el buffer
+
+        // ruta del archivo json
+        String ruta = "projecte-biblioteca/data/llibres.json";
+
+        // declaramos un array para guardar los llibres
+        JSONArray llibres = new JSONArray();
+
+        // leemos el archivo json
+        try {
+            File file = new File(ruta);
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of(ruta))); // leemos el archivo json
+                llibres = new JSONArray(content); // añadimos a libros el contenido del archivo json
+            }
+        } catch (Exception e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+
+        // buscamos el libro con el id introducido
+        for (int i = 0; i < llibres.length(); i ++) { // recorremos el array de llibres con un bucle for 
+            JSONObject llibre = llibres.getJSONObject(i); // obtenemos el objeto JSON de la posición i 
+            if (llibre.getInt("idLlibre") == id) { // si el id del libro existente es igual al id que el usuario a escrito 
+                llibres.remove(i); // eliminamos el libro del array
+                break; // salimos del bucle
+            }
+        }
+
+        // guardamos el array actualizado en el archivo json
+        try {
+            Files.write(Path.of(ruta), llibres.toString(4).getBytes()); // escribimos el array en el archivo json
+            System.out.println("Llibre eliminat correctament");
+        } catch (Exception e) {
+        }
+
+        menuPrincipal();} // volvemos al menú principal
 
 
     public static void afegirPrestecs() {
         System.out.println("Afegir préstec");
+        System.out.println("Introdueix l'ID del préstec: ");
+        Integer idPrestec = scanner.nextInt();
+        scanner.nextLine(); // limpiamos el buffer
+        System.out.println("Introdueix l'ID del llibre: ");
+        
+        // ruta del archivo json
+        String ruta = "projecte-biblioteca/data/prestecs.json";
+
+        // declaramos un array para guardar los préstecs
+        JSONArray prestecs = new JSONArray();
+
+        // leemos el archivo json
+        try {
+            File file = new File(ruta);
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of(ruta)));
+                prestecs = new JSONArray(content);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+
+        for (int i = 0; i < prestecs.length(); i++) {
+            JSONObject prestec = prestecs.getJSONObject(i);
+            if (prestec.getInt("idPrestec") == idPrestec) {
+                System.out.println("Error: Ja existeix un préstec amb aquest ID");
+                return;
+            }
+        }
+
+        // leemos el archivo json
+        try {
+            File file = new File(ruta);
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of(ruta)));
+                prestecs = new JSONArray(content);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+
+        // añadimos el nuevo préstec a la lista
+        prestecs.put(idPrestec);
+        
+        
     }
 
     public static void modificarPrestecs() {
