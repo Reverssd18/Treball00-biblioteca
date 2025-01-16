@@ -317,8 +317,7 @@ public class Main {
         } catch (Exception e) {
         }
 
-        menuPrincipal();
-    }
+        menuPrincipal();} // volvemos al menú principal
 
 
     public static void afegirPrestecs() {
