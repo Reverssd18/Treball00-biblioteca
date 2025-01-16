@@ -295,7 +295,7 @@ public class Main {
             File file = new File(ruta);
             if (file.exists()) {
                 String content = new String(Files.readAllBytes(Path.of(ruta))); // leemos el archivo json
-                llibres = new JSONArray(content);
+                llibres = new JSONArray(content); // añadimos a libros el contenido del archivo json
             }
         } catch (Exception e) {
             System.out.println("Error al llegir el fitxer");
