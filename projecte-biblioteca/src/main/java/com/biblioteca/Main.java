@@ -21,7 +21,7 @@ public class Main {
             System.out.print("1. Llibres\n2. Usuaris\n3. Préstecs\n0. Sortir\nEscull una opció:  ");
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
-                case "0", "sortir" -> {return; }
+                case "0", "sortir" -> System.exit(0);
                 case "1", "llibres" -> menuLlibres();
                 case "2", "usuaris" -> menuUsuaris();
                 case "3", "prestecs", "préstecs" -> menuPrestecs();
@@ -40,9 +40,10 @@ public class Main {
                 case "1", "afegir" -> afegirLlibres();
                 case "2", "modificar" -> modificarLlibres();
                 case "3", "eliminar" -> eliminarLlibres();
-                case "4", "llistar" -> llistarLlibres();
+                case "4", "llistar" -> System.out.println(llistarLlibres());
                 default -> error();
             }
+            break;
         }
     }
 
@@ -59,6 +60,7 @@ public class Main {
                 case "4", "llistar" -> llistarPrestecs();
                 default -> error();
             }
+            break;
         }
     }
 
@@ -75,6 +77,7 @@ public class Main {
                 case "4", "llistar" -> llistarUsuaris();
                 default -> error();
             }
+            break;
         }
     }
         public static void main(String[] args)  {
@@ -160,7 +163,7 @@ public class Main {
                 llibres = new JSONArray(content);
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Error al llegir el fitxer");
         }
             
@@ -192,7 +195,7 @@ public class Main {
         // guardamos la lista actualizada en el archivo json
         try (FileWriter writer = new FileWriter(ruta)) { // usamos try with resources para cerrar el archivo
             writer.write(llibres.toString(4)); // usamos el 4 para que se vea bonito
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Error al escriure el fitxer");
         }
 
@@ -242,29 +245,23 @@ public class Main {
                 System.out.println("0. Cancel·lar");
                 String opc = scanner.nextLine().toLowerCase().trim(); 
                 switch (opc) {
-                    case "0":
-                    case "cancel·lar": return; 
-                    case "1":
-                    case "títol": {
+                    case "0", "cancel·lar" -> { return; }
+                    case "1", "títol" -> {
                         System.out.println("Escriu el nou títol: ");
                         String nouTitol = scanner.nextLine();
                         llibre.put("titol", nouTitol); // actualizamos el valor del titulo
-                        break;
                     }
-                    case "2":
-                    case "autor": {
+                    case "2", "autor" -> {
                         System.out.println("Escriu el nou autor: ");
                         String nouAutor = scanner.nextLine();
                         llibre.put("autor", nouAutor); // actualizamos el valor del autor
-                        break;
                     }
-                    case "3":
-                    case "gènere":
+                    case "3", "gènere" -> {
                         System.out.println("Escriu el nou gènere: ");
                         String nouGènere = scanner.nextLine();
                         llibre.put("genre", nouGènere); // actualizamos el valor del gènere
-                        break;
-                    default: {
+                    }
+                    default -> {
                         System.out.println("Opció no vàlida. Torna a provar.");
                         return;
                     }
