@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import org.json.JSONArray;
@@ -170,7 +172,7 @@ public class Main {
         // Comprobamos si el ID ya existe
         for (int i = 0; i < llibres.length(); i++) {
             JSONObject llibre = llibres.getJSONObject(i);
-            if (llibre.getInt("idLlibre") == id) {
+            if (llibre.getInt("id") == id) {
                 System.out.println("Error: Ja existeix un llibre amb aquest ID");
                 return;
             }
@@ -237,7 +239,7 @@ public class Main {
             // Integer llibresId = llibre.getInt("id"); // obtenemos el id del libro
             // if (llibresId.equals(id)) { // si el id del libro existente es igual al id que el usuario a escrito 
             JSONObject llibre = llibres.getJSONObject(i); 
-            if (llibre.getInt("idLlibre") == id) {
+            if (llibre.getInt("id") == id) {
                 System.out.println("Que vols modificar?");
                 System.out.println("1. Títol");
                 System.out.println("2. Autor");
@@ -304,7 +306,7 @@ public class Main {
         // buscamos el libro con el id introducido
         for (int i = 0; i < llibres.length(); i ++) { // recorremos el array de llibres con un bucle for 
             JSONObject llibre = llibres.getJSONObject(i); // obtenemos el objeto JSON de la posición i 
-            if (llibre.getInt("idLlibre") == id) { // si el id del libro existente es igual al id que el usuario a escrito 
+            if (llibre.getInt("id") == id) { // si el id del libro existente es igual al id que el usuario a escrito 
                 llibres.remove(i); // eliminamos el libro del array
                 break; // salimos del bucle
             }
@@ -319,6 +321,18 @@ public class Main {
 
         menuPrincipal();} // volvemos al menú principal
 
+        public static JSONArray getPrestecs()  {
+            String path = "projecte-biblioteca/data/prestecs.json";
+            String prestecsArray = "";
+            try {
+                prestecsArray = new String(Files.readAllBytes(Paths.get(path)));
+            } catch (IOException e) {
+                System.err.println(e);
+            }
+    
+            JSONArray prestecsResult = new JSONArray(prestecsArray);
+            return prestecsResult;
+        }
 
     public static void afegirPrestecs() {
         System.out.println("Afegir préstec");
@@ -326,24 +340,102 @@ public class Main {
         Integer idPrestec = scanner.nextInt();
         scanner.nextLine(); // limpiamos el buffer
         System.out.println("Introdueix l'ID del llibre: ");
-        
-        // ruta del archivo json
-        String ruta = "projecte-biblioteca/data/prestecs.json";
+        Integer idLlibre = scanner.nextInt();
+        scanner.nextLine(); // limpiamos el buffer
+        System.out.println("Introdueix la data de préstec: ");
+        String dataPrestec = scanner.nextLine();
+        System.out.println("Introdueix la data de devolució: ");
+        String dataDevolucio = scanner.nextLine();
 
-        // declaramos un array para guardar los préstecs
-        JSONArray prestecs = new JSONArray();
+        // ruta del archivo json
+        String llibresRuta = "projecte-biblioteca/data/llibres.json";
+
+        // declaramos un array para guardar los llibres
+        JSONArray llibres = new JSONArray();
 
         // leemos el archivo json
         try {
-            File file = new File(ruta);
-            if (file.exists()) {
-                String content = new String(Files.readAllBytes(Path.of(ruta)));
-                prestecs = new JSONArray(content);
+            File llibresFile = new File(llibresRuta);
+            if (llibresFile.exists()) {
+                String llibresContent = new String(Files.readAllBytes(Path.of(llibresRuta)));
+                llibres = new JSONArray(llibresContent);
             }
         } catch (Exception e) {
             System.out.println("Error al llegir el fitxer");
+            return;
         }
 
+        JSONObject llibreExistent = null;
+
+        // Comprobamos si el ID del préstec ya existe
+        for (int i = 0; i < llibres.length(); i++) {
+            JSONObject llibre = llibres.getJSONObject(i);
+            if (llibre.getInt("id") == idLlibre) {
+                llibreExistent = llibre;
+                break;
+            }
+        }
+
+        if (llibreExistent == null) {
+            System.out.println("Error: No existeix un llibre amb aquest ID en el fitxer llibres.json");
+            return;
+        }
+
+        // creamos un JSONObject con los datos del nuevo préstec
+        JSONObject nouPrestec = new JSONObject();
+        
+        nouPrestec.put("idPrestec", idPrestec);
+        nouPrestec.put("id", idLlibre);
+        nouPrestec.put("titol", llibreExistent.getString("titol"));
+        nouPrestec.put("autor", llibreExistent.getString("autor"));
+        nouPrestec.put("genre", llibreExistent.getString("genre"));
+        nouPrestec.put("dataPrestec", dataPrestec);
+        nouPrestec.put("dataDevolucio", dataDevolucio);
+
+        if (dataPrestec.isEmpty() || dataDevolucio.isEmpty()) {
+            System.out.println("Error: Has d'omplir tots els camps");
+            return;
+        }
+        // Validación del ID del préstec
+        if (idPrestec < 2000) {
+            System.out.println("Error: L'ID del préstec ha de ser més gran de 2000");
+            return;
+        }
+
+
+        // Validación de formato de fechas
+        if (!dataPrestec.matches("\\d{4}-\\d{2}-\\d{2}") || !dataDevolucio.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            System.out.println("Error: El format de la data ha de ser yyyy-mm-dd");
+            return;
+        }
+
+        try {
+            LocalDate.parse(dataPrestec);
+            LocalDate.parse(dataDevolucio);
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: El format de la data ha de ser yyyy-mm-dd");
+            return;
+        }
+
+
+        // ruta del archivo json
+        String prestecsRuta = "projecte-biblioteca/data/prestecs.json";
+        JSONArray prestecs = new JSONArray();
+
+
+        // leemos el archivo json
+        try {
+            File prestecsFile = new File(prestecsRuta); // ponemos el archivo en una variable
+            if (prestecsFile.exists()) { // comprobamos si el archivo existe
+                String prestecsContent = new String(Files.readAllBytes(Path.of(prestecsRuta))); // en caso de que exista, leemos el archivo
+                prestecs = new JSONArray(prestecsContent); // añadimos a prestecs el contenido del archivo json
+            }
+        } catch (Exception e) {
+            System.out.println("Error al llegir el fitxer");
+            return;
+        }
+
+        // Comprobamos si el ID del préstec ya existe
         for (int i = 0; i < prestecs.length(); i++) {
             JSONObject prestec = prestecs.getJSONObject(i);
             if (prestec.getInt("idPrestec") == idPrestec) {
@@ -352,21 +444,21 @@ public class Main {
             }
         }
 
-        // leemos el archivo json
-        try {
-            File file = new File(ruta);
-            if (file.exists()) {
-                String content = new String(Files.readAllBytes(Path.of(ruta)));
-                prestecs = new JSONArray(content);
-            }
-        } catch (Exception e) {
-            System.out.println("Error al llegir el fitxer");
-        }
 
         // añadimos el nuevo préstec a la lista
-        prestecs.put(idPrestec);
-        
-        
+        prestecs.put(nouPrestec);
+
+        // guardamos la lista actualizada en el archivo json
+        try (FileWriter writer = new FileWriter(prestecsRuta)) {
+            writer.write(prestecs.toString(4));
+        } catch (IOException e) {
+            System.out.println("Error al escriure el fitxer");
+            return;
+        }
+
+        System.out.println("Préstec afegit correctament");
+
+        menuPrincipal();
     }
 
     public static void modificarPrestecs() {

@@ -1,48 +1,56 @@
-
 [
-        {
-            "idPrestec": 2000,
-            "idLlibre": 1003,
-            "title": "El arte de la Guerra",
-            "author": "Sun Tzu",
-            "genre": "Non-fiction",
-            "loan_date": "2025-01-09",
-            "return_date": "2025-03-09"
-        },
-        {
-            "idPrestec": 2001,
-            "idLlibre": 1002,
-            "title": "Diario de Ana Frank",
-            "author": "Anne Frank",
-            "genre": "Bibliography",
-            "loan_date": "2024-10-06",
-            "return_date": "2025-01-06"
-        },
-        {
-            "idPrestec": 2002,
-            "idLlibre": 1004,
-            "title": "El Alquimista",
-            "author": "Paulo Coelho",
-            "genre": "Novel",
-            "loan_date": "2024-11-24",
-            "return_date": "2025-02-24"
-        },
-        {
-            "idPrestec": 2003,
-            "idLlibre": 1000,
-            "title": "El Principito",
-            "author": "Antoine de Saint-Exupéry",
-            "genre": "Fable",
-            "loan_date": "2025-01-05",
-            "return_date": "2025-03-05"
-        },
-        {
-            "idPrestec": 2004,
-            "idLlibre": 1001,
-            "title": "Don Quijote",
-            "author": "Miguel de Cervantes",
-            "genre": "Novel",
-            "loan_date": "2025-01-07",
-            "return_date": "2025-03-07"
-        }
+    {
+        "idPrestec": 2000,
+        "dataDevolucio": "2025-03-09",
+        "dataPrestec": "2025-01-09",
+        "titol": "El arte de la Guerra",
+        "genre": "Non-fiction",
+        "id": 1003,
+        "autor": "Sun Tzu"
+    },
+    {
+        "idPrestec": 2001,
+        "dataDevolucio": "2025-01-06",
+        "dataPrestec": "2024-10-06",
+        "titol": "Diario de Ana Frank",
+        "genre": "Bibliography",
+        "id": 1002,
+        "autor": "Anne Frank"
+    },
+    {
+        "idPrestec": 2002,
+        "dataDevolucio": "2025-02-24",
+        "dataPrestec": "2024-11-24",
+        "titol": "El Alquimista",
+        "genre": "Novel",
+        "id": 1004,
+        "autor": "Paulo Coelho"
+    },
+    {
+        "idPrestec": 2003,
+        "dataDevolucio": "2025-03-05",
+        "dataPrestec": "2025-01-05",
+        "titol": "El Principito",
+        "genre": "Fable",
+        "id": 1000,
+        "autor": "Antoine de Saint-Exupéry"
+    },
+    {
+        "idPrestec": 2004,
+        "dataDevolucio": "2025-03-07",
+        "dataPrestec": "2025-01-07",
+        "titol": "Don Quijote",
+        "genre": "Novel",
+        "id": 1001,
+        "autor": "Miguel de Cervantes"
+    },
+    {
+        "idPrestec": 2014,
+        "dataDevolucio": "2025-05-18",
+        "dataPrestec": "2025-01-17",
+        "titol": "El dia que se perdio la cordura",
+        "genre": "Misterio",
+        "id": 1014,
+        "autor": "Javier Castillo"
+    }
 ]
