@@ -1,40 +1,63 @@
 [
     {
         "IdUsuari": 0,
-        "Name": "John",
-        "Surname": "Doe",
+        "nom": "John",
+        "cognom": "Doe",
         "Age": 30,
-        "Tlf": []
+        "DNI": "12345678Z",
+        "Tlf": [
+            4567890123,
+            9876543210
+        ]
     },
-
     {
-        "Id": 1,
-        "Name": "Jane",
-        "Surname": "Smith",
+        "IdUsuari": 1,
+        "nom": "Jane",
+        "cognom": "Smith",
         "Age": 25,
-        "Tlf": ["0123456789", "9876543210"]
+        "DNI": "12345678A",
+        "Tlf": [
+            326783479,
+            9876543210
+        ]
     },
-
     {
-        "Id": 2,
-        "Name": "Bob",
-        "Surname": "Johnson",
+        "IdUsuari": 2,
+        "nom": "Bob",
+        "cognom": "Johnson",
         "Age": 45,
-        "Tlf": ["1234567890"]
+        "DNI": "12345678B",
+        "Tlf": [1234567890]
     },
-
     {
-        "Id": 3,
-        "Name": "Alice",
-        "Surname": "Williams",
+        "IdUsuari": 3,
+        "nom": "Alice",
+        "cognom": "Williams",
         "Age": 32,
-        "Tlf": ["0987654321"]
+        "DNI": "12345678C",
+        "Tlf": [
+            734672358,
+            1234567890
+        ]
     },
     {
-        "Id": 4,
-        "Name": "Charlie",
-        "Surname": "Brown",
+        "IdUsuari": 4,
+        "nom": "Charlie",
+        "cognom": "Brown",
         "Age": 28,
-        "Tlf": ["6623444324","2131321332","2062679823"]
+        "DNI": "12345678D",
+        "Tlf": [
+            6623444324,
+            2131321332,
+            2062679823
+        ]
+    },
+    {
+        "IdUsuari": 5,
+        "nom": "Marta",
+        "cognom": "Diaz",
+        "Age": 25,
+        "DNI": "42673849T",
+        "Tlf": 653829674
     }
 ]
