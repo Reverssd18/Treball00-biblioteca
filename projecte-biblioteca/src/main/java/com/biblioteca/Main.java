@@ -240,7 +240,7 @@ public class Main {
             // Integer llibresId = llibre.getInt("id"); // obtenemos el id del libro
             // if (llibresId.equals(id)) { // si el id del libro existente es igual al id que el usuario a escrito 
             JSONObject llibre = llibres.getJSONObject(i); 
-            if (llibre.getInt("idLlibre") == id) {
+            if (llibre.getInt("id") == id) {
                 System.out.println("Que vols modificar?");
                 System.out.println("1. Títol");
                 System.out.println("2. Autor");
@@ -453,6 +453,62 @@ public class Main {
 
     public static void modificarPrestecs() {
         System.out.println("Modificar préstec");
+        System.out.println("Introdueix l'ID del préstec a modificar: ");
+        Integer idPrestec = scanner.nextInt();
+        scanner.nextLine(); // limpiamos el buffer
+
+        // ruta del archivo json
+        String ruta = "projecte-biblioteca/data/prestecs.json";
+
+        // declaramos un array para guardar los préstecs
+        JSONArray prestecs = new JSONArray();
+
+        // leemos el archivo json
+        try {
+            File file = new File(ruta);
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of(ruta)));
+                prestecs = new JSONArray(content);
+            }
+        } catch (IOException | JSONException e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+
+        for (int i = 0; i < prestecs.length(); i ++) {
+            JSONObject prestec = prestecs.getJSONObject(1);
+            if (prestec.getInt("idPrestec") == idPrestec) {
+                System.out.println("Que vols modificar?");
+                System.out.println("1. Data de préstec");
+                System.out.println("2. Data de devolució");
+                System.out.println("0. Cancel·lar");
+                String opc = scanner.nextLine().toLowerCase().trim(); 
+                switch (opc) {
+                    case "0", "cancel·lar" -> { return; }
+                    case "1", "data de préstec" -> {
+                        System.out.println("Escriu la nova data de préstec: ");
+                        String novaDataPrestec = scanner.nextLine();
+                        prestec.put("dataPrestec", novaDataPrestec); // actualizamos el valor de la data de préstec
+                    }
+                    case "2", "data de devolució" -> {
+                        System.out.println("Escriu la nova data de devolució: ");
+                        String novaDataDevolucio = scanner.nextLine();
+                        prestec.put("dataDevolucio", novaDataDevolucio); // actualizamos el valor de la data de devolució
+                    }
+                    default -> {
+                        System.out.println("Opció no vàlida. Torna a provar.");
+                        return;
+                    }
+                }
+            }
+        }
+
+        try {
+            Files.write(Path.of(ruta), prestecs.toString(4).getBytes());
+            System.out.println("Préstec modificat correctament");
+        } catch (IOException | JSONException e) {
+        }
+
+        menuPrincipal();
     }
 
     public static void eliminarPrestecs() {
