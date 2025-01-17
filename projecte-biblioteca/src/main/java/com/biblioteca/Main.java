@@ -50,13 +50,13 @@ public class Main {
     public static void menuLlistarLlibres() {
         while (true) {
             System.out.println("\n---Llistar llibres---");
-            System.out.print("1. Llistar llibres\n2. Llistar llibres en préstec\n3. Llistar llibres d'un autor\n4. Llistar llibres a partir de paraules al títol\n0. Tornar al menú principal\nEscull una opció:  ");
+            System.out.print("1. Llistar llibres\n2. Llistar llibres en préstec\n3. Llistar llibres d'un autor\n4. Llistar llibres a partir de paraules al títol\n0. Tornar a Gestió de llibres\nEscull una opció:  ");
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
-                case "0", "tornar" -> menuPrincipal();
+                case "0", "tornar" -> menuLlibres();
                 case "1", "llistar" -> System.out.println(llistarLlibres("llistar"));
                 case "2", "prestec","préstec" -> System.out.println(llistarLlibres("prestec"));
-                case "3","autor" -> System.out.println(llistarLlibres("autor"));
+                case "3","autor" -> llistarLlibresAutor();
                 case "4","paraules","titol","títol" -> System.out.println(llistarLlibres("titol"));
                 default -> error();
             }
@@ -163,10 +163,54 @@ public class Main {
             }
         }
         
-        
-        
         result.append("\n");
         return result.toString();
+    }
+    public static String llistarLlibresAutor() {
+        JSONArray llibres = getLlibres();
+        StringBuilder result = new StringBuilder();
+        StringBuilder autorPreview = new StringBuilder();
+        autorPreview.append("Autors disponibles: ");
+        for (int i = 0; i < llibres.length(); i++) {
+            JSONObject llibre = llibres.getJSONObject(i);
+            if (!autorPreview.toString().contains(llibre.getString("autor"))) {
+                if (autorPreview.length() > "Autores disponibles: ".length()) {
+                    autorPreview.append(" | ");
+                }
+                autorPreview.append(llibre.getString("autor"));
+            }
+        }
+        System.out.println(autorPreview.toString());
+        System.out.println("Introdueix l'autor: ");
+        String autor = scanner.nextLine();
+        String format = "%-5s %-30s %-30s %-20s%n"; // format per imprimir la taula indicant la mida de cada columna
+        result.append(String.format(format, "Id", "Títol", "Autor", "Gènere"));
+        result.append(String.format(format, "--", "-----", "-----", "------"));
+        boolean found = false;
+        for (int i = 0; i < llibres.length(); i++) {
+            JSONObject llibre = llibres.getJSONObject(i);
+            if (llibre.getString("autor").equals(autor)) {
+            result.append(String.format(format, 
+                llibre.getInt("idLlibre"), 
+                llibre.getString("titol"), 
+                llibre.getString("autor"), 
+                llibre.getString("genre")
+            ));
+            found = true;
+            } 
+        }
+        if (!found) {
+            System.out.println("No s'ha trobat cap llibre de l'autor " + autor);
+            menuLlistarLlibres();
+        } else {
+            System.out.println(result.toString());
+        }
+        
+        return result.toString();
+        }
+    public static String llistarLlibresTitol() {
+        
+        return "";
     }
 
     public static void afegirLlibres() {
