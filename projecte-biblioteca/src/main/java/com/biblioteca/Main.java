@@ -513,6 +513,39 @@ public class Main {
 
     public static void eliminarPrestecs() {
         System.out.println("Eliminar préstec");
+        System.out.println("Introdueix l'ID del préstec a eliminar: ");
+        Integer idPrestc = scanner.nextInt();
+
+        String ruta = "projecte-biblioteca/data/prestecs.json";
+
+        JSONArray prestecs = new JSONArray();
+
+        try {
+            File file = new File(ruta);
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of(ruta)));
+                prestecs = new JSONArray(content);
+            }
+        } catch (IOException e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+
+        for (int i = 0; i < prestecs.length(); i ++) {
+            JSONObject prestec = prestecs.getJSONObject(i);
+            if (prestec.getInt("idPrestec") == idPrestc) {
+                prestecs.remove(i); // removemos el libro del array si el id coincide
+                break;
+            }
+        }
+
+        try {
+            Files.write(Path.of(ruta), prestecs.toString(4).getBytes());
+            System.out.println("Préstec eliminat correctament");
+        } catch (IOException e) {
+            System.out.println("Error al escriure el fitxer");
+        }
+
+        menuPrincipal();
     }
 
     public static void llistarPrestecs() {
@@ -536,8 +569,7 @@ public class Main {
     }
 
     public static void error() {
-        System.out.println("Opció no vàlida. Torna a provar.");
+        //  System.out.println("Opció no vàlida. Torna a provar.");
     }
-
 
 }

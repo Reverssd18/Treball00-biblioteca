@@ -28,29 +28,11 @@
     },
     {
         "idPrestec": 2003,
-        "dataDevolucio": "2025-03-05",
-        "dataPrestec": "2025-01-05",
-        "titol": "El Principito",
-        "genre": "Fable",
-        "id": 1000,
-        "autor": "Antoine de Saint-Exupéry"
-    },
-    {
-        "idPrestec": 2004,
-        "dataDevolucio": "2025-03-07",
-        "dataPrestec": "2025-01-07",
-        "titol": "Don Quijote",
-        "genre": "Novel",
-        "id": 1001,
-        "autor": "Miguel de Cervantes"
-    },
-    {
-        "idPrestec": 2014,
-        "dataDevolucio": "2025-05-18",
+        "dataDevolucio": "2025-04-23",
         "dataPrestec": "2025-01-17",
-        "titol": "El dia que se perdio la cordura",
-        "genre": "Misterio",
-        "id": 1014,
-        "autor": "Javier Castillo"
+        "titol": "EL Arte de la Guerra",
+        "genre": "Non-fiction",
+        "id": 1003,
+        "autor": "Sun Tzu"
     }
 ]
