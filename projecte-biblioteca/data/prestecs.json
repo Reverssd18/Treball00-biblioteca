@@ -2,7 +2,7 @@
 [
         {
             "idPrestec": 2000,
-            "idLlibre": 1003,
+            "id": 1003,
             "title": "El arte de la Guerra",
             "author": "Sun Tzu",
             "genere": "Non-fiction",
@@ -11,7 +11,7 @@
         },
         {
             "idPrestec": 2001,
-            "idLlibre": 1002,
+            "id": 1002,
             "title": "Diario de Ana Frank",
             "author": "Anne Frank",
             "genere": "Bibliography",
@@ -20,7 +20,7 @@
         },
         {
             "idPrestec": 2002,
-            "idLlibre": 1004,
+            "id": 1004,
             "title": "El Alquimista",
             "author": "Paulo Coelho",
             "genere": "Novel",
@@ -29,7 +29,7 @@
         },
         {
             "idPrestec": 2003,
-            "idLlibre": 1000,
+            "id": 1000,
             "title": "El Principito",
             "author": "Antoine de Saint-Exupéry",
             "genere": "Fable",
@@ -38,7 +38,7 @@
         },
         {
             "idPrestec": 2004,
-            "idLlibre": 1001,
+            "id": 1001,
             "title": "Don Quijote",
             "author": "Miguel de Cervantes",
             "genere": "Novel",
