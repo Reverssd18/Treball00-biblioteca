@@ -11,6 +11,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -186,7 +187,7 @@ public class Main {
                 llibres = new JSONArray(content);
             }
 
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
             System.out.println("Error al llegir el fitxer");
         }
 
@@ -228,7 +229,7 @@ public class Main {
                 String content = new String(Files.readAllBytes(Path.of(ruta)));
                 llibres = new JSONArray(content);
             }
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
             System.out.println("Error al llegir el fitxer");
         }
 
@@ -274,7 +275,7 @@ public class Main {
         try {
             Files.write(Path.of(ruta), llibres.toString(4).getBytes());
             System.out.println("Llibre modificat correctament");
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
         }
 
         menuPrincipal();
@@ -299,7 +300,7 @@ public class Main {
                 String content = new String(Files.readAllBytes(Path.of(ruta))); // leemos el archivo json
                 llibres = new JSONArray(content); // añadimos a libros el contenido del archivo json
             }
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
             System.out.println("Error al llegir el fitxer");
         }
 
@@ -316,7 +317,7 @@ public class Main {
         try {
             Files.write(Path.of(ruta), llibres.toString(4).getBytes()); // escribimos el array en el archivo json
             System.out.println("Llibre eliminat correctament");
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
         }
 
         menuPrincipal();} // volvemos al menú principal
@@ -430,7 +431,7 @@ public class Main {
                 String prestecsContent = new String(Files.readAllBytes(Path.of(prestecsRuta))); // en caso de que exista, leemos el archivo
                 prestecs = new JSONArray(prestecsContent); // añadimos a prestecs el contenido del archivo json
             }
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
             System.out.println("Error al llegir el fitxer");
             return;
         }
@@ -444,6 +445,16 @@ public class Main {
             }
         }
 
+        // leemos el archivo json
+        try {
+            File file = new File(ruta);
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of(ruta)));
+                prestecs = new JSONArray(content);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al llegir el fitxer");
+        }
 
         // añadimos el nuevo préstec a la lista
         prestecs.put(nouPrestec);
