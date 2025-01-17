@@ -2,31 +2,31 @@
     {
         "titol": "Principitoo",
         "genre": "Fable",
-        "idLlibre": 1000,
+        "id": 1000,
         "autor": "Antoine de Saint-Exupéry"
     },
     {
         "titol": "Don Quijote",
         "genre": "Novel",
-        "idLlibre": 1001,
+        "id": 1001,
         "autor": "Miguel de Cervantes"
     },
     {
         "titol": "Diario de Ana Frank",
         "genre": "Bibliography",
-        "idLlibre": 1002,
+        "id": 1002,
         "autor": "Anne Frank"
     },
     {
         "titol": "EL Arte de la Guerra",
         "genre": "Non-fiction",
-        "idLlibre": 1003,
+        "id": 1003,
         "autor": "Sun Tzu"
     },
     {
         "titol": "El Alquimista",
         "genre": "Novel",
-        "idLlibre": 1004,
+        "id": 1004,
         "autor": "Paulo Coelho"
     },
     {
@@ -38,13 +38,25 @@
     {
         "titol": "Prueba",
         "genre": "Ficcion",
-        "idLlibre": 1011,
+        "id": 1011,
         "autor": "Carlos Enrique"
     },
     {
         "titol": "Giant",
         "genre": "Fable",
-        "idLlibre": 1012,
+        "id": 1012,
         "autor": "Victor Palace"
+    },
+    {
+        "titol": "Alicia en el Pais de las Maravillas",
+        "genre": "Literatura Infantil",
+        "id": 1013,
+        "autor": "Lewis Carrol"
+    },
+    {
+        "titol": "El dia que se perdio la cordura",
+        "genre": "Misterio",
+        "id": 1014,
+        "autor": "Javier Castillo"
     }
 ]
