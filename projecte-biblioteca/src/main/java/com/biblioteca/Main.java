@@ -412,6 +412,13 @@ public class Main {
             }
         }
 
+        // guardamos el array actualizado en el archivo json
+        try {
+            Files.write(Path.of("projecte-biblioteca/data/llibres.json"), llibres.toString(4).getBytes());
+            System.out.println("Llibre modificat correctament");
+        } catch (IOException e) {
+            System.out.println("Error al escriure el fitxer");
+        }
         menuPrincipal();
     }
 
@@ -1001,6 +1008,16 @@ public class Main {
                 }
             }
         }
+
+        // guardamos el array actualizado en el archivo json
+        try {
+            Files.write(Path.of("projecte-biblioteca/data/usuaris.json"), usuaris.toString(4).getBytes());
+            System.out.println("Usuari modificat correctament");
+        } catch (IOException e) {
+            System.out.println("Error al escriure el fitxer");
+        }
+
+        menuPrincipal();
     }
 
     public static void eliminarUsuaris() {
