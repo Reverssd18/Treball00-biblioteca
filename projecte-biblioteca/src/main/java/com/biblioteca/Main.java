@@ -1022,6 +1022,46 @@ public class Main {
 
     public static void eliminarUsuaris() {
         System.out.println("Eliminar usuaris");
+
+        System.out.println("Introdueix l'ID de l'usuari a eliminar: ");
+        Integer id = scanner.nextInt();
+        scanner.nextLine(); // limpiamos el buffer
+
+        // ruta del archivo json
+        String ruta = "projecte-biblioteca/data/usuaris.json";
+
+        // declaramos un array para guardar los usuaris
+        JSONArray usuaris = new JSONArray();
+
+        // leemos el archivo json
+        try {
+            File file = new File(ruta);
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of(ruta)));
+                usuaris = new JSONArray(content);
+            }
+        } catch (IOException e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+
+        // buscamos el usuario con el id introducido
+        for (int i = 0; i < usuaris.length(); i++) {
+            JSONObject usuari = usuaris.getJSONObject(i);
+            if (usuari.getInt("IdUsuari") == id) {
+                usuaris.remove(i); // eliminamos el usuario del array
+                break; // salimos del bucle
+            }
+        }
+
+        // guardamos el array actualizado en el archivo json
+        try {
+            Files.write(Path.of(ruta), usuaris.toString(4).getBytes());
+            System.out.println("Usuari eliminat correctament");
+        } catch (IOException e) {
+            System.out.println("Error al escriure el fitxer");
+        }
+
+        menuPrincipal();
     }
 
     public static void llistarUsuaris() {
