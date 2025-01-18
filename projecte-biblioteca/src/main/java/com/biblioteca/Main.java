@@ -95,9 +95,9 @@ public class Main {
             switch (opc) {
                 case "0", "tornar" -> menuPrestecs();
                 case "1", "llistar" -> llistarPrestecs();
-                case "2", "usuari" -> System.out.println("Llistar préstecs d'un usuari");
-                case "3", "actiu" -> System.out.println("Llistar préstecs actius");
-                case "4", "termini" -> System.out.println("Llistar préstecs fora de termini");
+                case "2", "usuari" -> llistarPrestecsUsuari();
+                case "3", "actiu" -> llistarPrestecsActius();
+                case "4", "termini" -> llistarPrestecsTermini();
                 default -> error();
             }
             break;
@@ -682,7 +682,7 @@ public class Main {
         menuPrincipal();
     }
 
-    public static void llistarPrestecs() {
+    public static String llistarPrestecs() {
         JSONArray prestecs = getPrestecs();
         StringBuilder result = new StringBuilder();
         if (prestecs.length() == 0) {
@@ -703,7 +703,39 @@ public class Main {
                 result.append("\n");
             }
         }
-        System.out.println(result.toString());
+        return result.toString();
+    }
+
+    public static String llistarPrestecsUsuari() {
+        JSONArray prestecs = getPrestecs();
+        StringBuilder result = new StringBuilder();
+        System.out.println("Introdueix l'ID de l'usuari: ");
+        Integer idUsuari = scanner.nextInt();
+        scanner.nextLine(); // limpiamos el buffer
+        if (prestecs.length() == 0) {
+            result.append("No hi ha préstecs disponibles.\n");
+        } else {
+            String format = "%-10s %-30s %-30s %-15s %-15s %-10s%n";
+
+            result.append(String.format(format, "Id", "Títol", "Autor", "Data Préstec", "Data Devolució", "Id Usuari"));
+            result.append(String.format(format, "--", "-----", "-----", "------------", "-------------", "--------"));
+            for (int i = 0; i < prestecs.length(); i++) {
+                if (prestecs.getJSONObject(i).getInt("id") == idUsuari) {
+                    result.append(String.format(format,
+                            prestecs.getJSONObject(i).getInt("idPrestec"),
+                            prestecs.getJSONObject(i).getString("titol"),
+                            prestecs.getJSONObject(i).getString("autor"),
+                            prestecs.getJSONObject(i).getString("dataPrestec"),
+                            prestecs.getJSONObject(i).getString("dataDevolucio"),
+                            prestecs.getJSONObject(i).getInt("id")));
+                    result.append("\n");
+                }
+
+            }
+
+        }
+
+        return result.toString();
     }
 
     public static void afegirUsuaris() {
