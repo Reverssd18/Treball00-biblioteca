@@ -97,7 +97,7 @@ public class Main {
                 case "1", "llistar" -> llistarPrestecs();
                 case "2", "usuari" -> llistarPrestecsUsuari();
                 case "3", "actiu" -> llistarPrestecsActius();
-                case "4", "termini" -> llistarPrestecsTermini();
+                case "4", "termini" -> llistarPrestecsForaTermini();
                 default -> error();
             }
             break;
@@ -128,17 +128,27 @@ public class Main {
 
     // menu-functions
 
-    public static JSONArray getLlibres() {
-        String path = "projecte-biblioteca/data/llibres.json";
-        String llibresArray = "";
+    public static JSONArray llegirJSONambPath(String path) {
+        JSONArray jsonArray = new JSONArray();
         try {
-            llibresArray = new String(Files.readAllBytes(Paths.get(path)));
-        } catch (IOException e) {
-            System.err.println(e);
+            String contingut = new String(Files.readAllBytes(Paths.get(path)));
+            jsonArray = new JSONArray(contingut);
+        } catch (IOException | JSONException e) {
+            System.err.println("Error llegint el JSON file: " + e.getMessage());
         }
+        return jsonArray;
+    }
 
-        JSONArray llibresResult = new JSONArray(llibresArray);
-        return llibresResult;
+    public static JSONArray getLlibres() {
+        return llegirJSONambPath("projecte-biblioteca/data/llibres.json");
+    }
+
+    public static JSONArray getPrestecs() {
+        return llegirJSONambPath("projecte-biblioteca/data/prestecs.json");
+    }
+
+    public static JSONArray getUsuaris() {
+        return llegirJSONambPath("projecte-biblioteca/data/usuaris.json");
     }
 
     public static String llistarLlibres() {
@@ -160,6 +170,10 @@ public class Main {
         }
 
         result.append("\n");
+        System.out.println(result.toString());
+
+        System.out.println(result.toString());
+        System.out.println(result.toString());
         System.out.println(result.toString());
         return result.toString();
     }
@@ -227,7 +241,7 @@ public class Main {
         }
         if (!found) {
             System.out.println("No s'ha trobat cap llibre de l'autor " + autor);
-            menuLlistarLlibres();
+            return result.toString();
         } else {
             System.out.println(result.toString());
         }
@@ -443,19 +457,6 @@ public class Main {
         menuPrincipal();
     } // volvemos al menú principal
 
-    public static JSONArray getPrestecs() {
-        String path = "projecte-biblioteca/data/prestecs.json";
-        String prestecsArray = "";
-        try {
-            prestecsArray = new String(Files.readAllBytes(Paths.get(path)));
-        } catch (IOException e) {
-            System.err.println(e);
-        }
-
-        JSONArray prestecsResult = new JSONArray(prestecsArray);
-        return prestecsResult;
-    }
-
     public static void afegirPrestecs() {
         System.out.println("Afegir préstec");
         System.out.println("Introdueix l'ID del préstec: ");
@@ -482,7 +483,7 @@ public class Main {
                 String llibresContent = new String(Files.readAllBytes(Path.of(llibresRuta)));
                 llibres = new JSONArray(llibresContent);
             }
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
             System.out.println("Error al llegir el fitxer");
             return;
         }
@@ -551,7 +552,7 @@ public class Main {
                                                                                                 // archivo
                 prestecs = new JSONArray(prestecsContent); // añadimos a prestecs el contenido del archivo json
             }
-        } catch (Exception e) {
+        } catch (IOException | JSONException e) {
             System.out.println("Error al llegir el fitxer");
             return;
         }
@@ -606,7 +607,7 @@ public class Main {
         }
 
         for (int i = 0; i < prestecs.length(); i++) {
-            JSONObject prestec = prestecs.getJSONObject(1);
+            JSONObject prestec = prestecs.getJSONObject(i);
             if (prestec.getInt("idPrestec") == idPrestec) {
                 System.out.println("Que vols modificar?");
                 System.out.println("1. Data de préstec");
@@ -688,8 +689,7 @@ public class Main {
         if (prestecs.length() == 0) {
             result.append("No hi ha préstecs disponibles.\n");
         } else {
-            String format = "%-10s %-30s %-30s %-15s %-15s %-10s%n"; // format per imprimir la taula indicant la mida de
-                                                                     // cada columna
+            String format = "%-10s %-30s %-30s %-15s %-15s %-10s%n"; // format
             result.append(String.format(format, "Id", "Títol", "Autor", "Data Préstec", "Data Devolució", "Id Usuari"));
             result.append(String.format(format, "--", "-----", "-----", "------------", "-------------", "--------"));
             for (int i = 0; i < prestecs.length(); i++) {
@@ -703,74 +703,131 @@ public class Main {
                 result.append("\n");
             }
         }
+        System.out.println(result.toString());
         return result.toString();
     }
 
     public static String llistarPrestecsUsuari() {
         JSONArray prestecs = getPrestecs();
         StringBuilder result = new StringBuilder();
-        System.out.println("Introdueix l'ID de l'usuari: ");
-        Integer idUsuari = scanner.nextInt();
-        scanner.nextLine(); // limpiamos el buffer
-        if (prestecs.length() == 0) {
-            result.append("No hi ha préstecs disponibles.\n");
-        } else {
-            String format = "%-10s %-30s %-30s %-15s %-15s %-10s%n";
 
-            result.append(String.format(format, "Id", "Títol", "Autor", "Data Préstec", "Data Devolució", "Id Usuari"));
-            result.append(String.format(format, "--", "-----", "-----", "------------", "-------------", "--------"));
-            for (int i = 0; i < prestecs.length(); i++) {
-                if (prestecs.getJSONObject(i).getInt("id") == idUsuari) {
-                    result.append(String.format(format,
-                            prestecs.getJSONObject(i).getInt("idPrestec"),
-                            prestecs.getJSONObject(i).getString("titol"),
-                            prestecs.getJSONObject(i).getString("autor"),
-                            prestecs.getJSONObject(i).getString("dataPrestec"),
-                            prestecs.getJSONObject(i).getString("dataDevolucio"),
-                            prestecs.getJSONObject(i).getInt("id")));
-                    result.append("\n");
-                }
+        System.out.print("Introdueix l'ID de l'usuari: ");
+        Integer idUsuari;
 
-            }
-
+        try {
+            idUsuari = scanner.nextInt();
+            scanner.nextLine();
+        } catch (Exception e) {
+            scanner.nextLine();
+            return "Error: ID d'usuari no vàlid.\n";
         }
 
+        if (prestecs.length() == 0) {
+            return "No hi ha préstecs disponibles.\n";
+        }
+
+        String format = "%-10s %-30s %-30s %-15s %-15s %-10s%n";
+        result.append(String.format(format, "Id", "Títol", "Autor", "Data Préstec", "Data Devolució", "Id Usuari"));
+        result.append(String.format(format, "--", "-----", "-----", "------------", "-------------", "--------"));
+
+        boolean found = false;
+        for (int i = 0; i < prestecs.length(); i++) {
+            JSONObject prestec = prestecs.getJSONObject(i);
+            if (prestec.getInt("id") == idUsuari) {
+                result.append(String.format(format,
+                        prestec.getInt("idPrestec"),
+                        prestec.getString("titol"),
+                        prestec.getString("autor"),
+                        prestec.getString("dataPrestec"),
+                        prestec.getString("dataDevolucio"),
+                        prestec.getInt("id")));
+                found = true;
+            }
+        }
+
+        if (!found) {
+            return "No s'han trobat préstecs per a l'usuari amb ID " + idUsuari + ".\n";
+        }
+        System.out.println(result.toString());
         return result.toString();
     }
 
     public static String llistarPrestecsActius() {
-        // si el prestecs esta actiu ho mostrara
         JSONArray prestecs = getPrestecs();
         StringBuilder result = new StringBuilder();
-        if (prestecs.length() == 0) {
-            result.append("No hi ha préstecs actius.\n");
-        } else {
 
-            String format = "%-10s %-30s %-30s %-15s  %-10s%n";
-            result.append(String.format(format, "Id", "Títol", "Autor", "Data Préstec", "Id Usuari"));
-            result.append(String.format(format, "--", "-----", "-----", "------------", "--------"));
-            for (int i = 0; i < prestecs.length(); i++) {
-                JSONObject prestec = prestecs.getJSONObject(i);
-                if (prestec.getString("dataDevolucio").isEmpty()) {
+        if (prestecs.length() == 0) {
+            return "No hi ha préstecs actius.\n";
+        }
+
+        String format = "%-10s %-30s %-30s %-15s %-15s %-10s%n";
+        result.append(String.format(format, "Id", "Títol", "Autor", "Data Préstec", "Termini", "Id Usuari"));
+        result.append(String.format(format, "--", "-----", "-----", "------------", "-------", "--------"));
+
+        boolean found = false;
+        for (int i = 0; i < prestecs.length(); i++) {
+            JSONObject prestec = prestecs.getJSONObject(i);
+            if (prestec.getString("dataDevolucio").isEmpty()
+                    || LocalDate.parse(prestec.getString("dataDevolucio")).isAfter(LocalDate.now())) {
+                result.append(String.format(format,
+                        prestec.getInt("idPrestec"),
+                        prestec.getString("titol"),
+                        prestec.getString("autor"),
+                        prestec.getString("dataPrestec"),
+                        prestec.getString("termini"),
+                        prestec.getInt("id")));
+                found = true;
+            }
+        }
+
+        if (!found) {
+            return "No hi ha préstecs actius.\n";
+        }
+        System.out.println(result.toString());
+        return result.toString();
+    }
+
+    public static String llistarPrestecsForaTermini() {
+        JSONArray prestecs = getPrestecs();
+        StringBuilder result = new StringBuilder();
+
+        if (prestecs.length() == 0) {
+            return "No hi ha préstecs fora de termini.\n";
+        }
+
+        String format = "%-10s %-30s %-30s %-15s %-15s %-10s%n";
+        result.append(String.format(format, "Id", "Títol", "Autor", "Data Préstec", "Data Devolució", "Termini",
+                "Id Usuari"));
+        result.append(
+                String.format(format, "--", "-----", "-----", "------------", "-------------", "-------", "--------"));
+
+        boolean found = false;
+        for (int i = 0; i < prestecs.length(); i++) {
+            JSONObject prestec = prestecs.getJSONObject(i);
+
+            if (!prestec.getString("dataDevolucio").isEmpty()) {
+                LocalDate dataDevolucio = LocalDate.parse(prestec.getString("dataDevolucio"));
+                if (dataDevolucio.isBefore(LocalDate.now())) {
                     result.append(String.format(format,
                             prestec.getInt("idPrestec"),
                             prestec.getString("titol"),
                             prestec.getString("autor"),
                             prestec.getString("dataPrestec"),
+                            prestec.getString("dataDevolucio"),
+                            prestec.getString("termini"),
                             prestec.getInt("id")));
-                    result.append("\n");
+                    found = true;
                 }
             }
-
         }
 
+        if (!found) {
+            String noResult = "No hi ha préstecs fora de termini.\n";
+            System.out.println(noResult);
+            return noResult;
+        }
+        System.out.println(result.toString());
         return result.toString();
-    }
-
-    public static String llistarPrestecsTermini() {
-
-        return "Llistar préstecs fora de termini";
-
     }
 
     public static void afegirUsuaris() {
@@ -790,7 +847,7 @@ public class Main {
     }
 
     public static void error() {
-        // System.out.println("Opció no vàlida. Torna a provar.");
+        System.out.println("Opció no vàlida. Torna a provar.");
     }
 
 }
