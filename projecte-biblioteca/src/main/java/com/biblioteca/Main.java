@@ -738,6 +738,41 @@ public class Main {
         return result.toString();
     }
 
+    public static String llistarPrestecsActius() {
+        // si el prestecs esta actiu ho mostrara
+        JSONArray prestecs = getPrestecs();
+        StringBuilder result = new StringBuilder();
+        if (prestecs.length() == 0) {
+            result.append("No hi ha préstecs actius.\n");
+        } else {
+
+            String format = "%-10s %-30s %-30s %-15s  %-10s%n";
+            result.append(String.format(format, "Id", "Títol", "Autor", "Data Préstec", "Id Usuari"));
+            result.append(String.format(format, "--", "-----", "-----", "------------", "--------"));
+            for (int i = 0; i < prestecs.length(); i++) {
+                JSONObject prestec = prestecs.getJSONObject(i);
+                if (prestec.getString("dataDevolucio").isEmpty()) {
+                    result.append(String.format(format,
+                            prestec.getInt("idPrestec"),
+                            prestec.getString("titol"),
+                            prestec.getString("autor"),
+                            prestec.getString("dataPrestec"),
+                            prestec.getInt("id")));
+                    result.append("\n");
+                }
+            }
+
+        }
+
+        return result.toString();
+    }
+
+    public static String llistarPrestecsTermini() {
+
+        return "Llistar préstecs fora de termini";
+
+    }
+
     public static void afegirUsuaris() {
         System.out.println("Afegir usuaris");
     }
