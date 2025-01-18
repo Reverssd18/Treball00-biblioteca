@@ -59,5 +59,13 @@
         "Age": 25,
         "DNI": "42673849T",
         "Tlf": 653829674
+    },
+    {
+        "IdUsuari": 6,
+        "nom": "Andrei",
+        "cognom": "Fernandez",
+        "Age": 25,
+        "DNI": "5636894T",
+        "Tlf": 546278453
     }
 ]
