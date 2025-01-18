@@ -1,40 +1,52 @@
 [
     {
         "IdUsuari": 0,
-        "Name": "John",
         "Surname": "Doe",
         "Age": 30,
+        "Name": "John",
         "Tlf": []
     },
-
     {
-        "Id": 1,
-        "Name": "Jane",
+        "IdUsuari": 1,
         "Surname": "Smith",
         "Age": 25,
-        "Tlf": ["0123456789", "9876543210"]
+        "Name": "Jane",
+        "Tlf": [
+            "0123456789",
+            "9876543210"
+        ]
     },
-
     {
-        "Id": 2,
-        "Name": "Bob",
+        "IdUsuari": 2,
         "Surname": "Johnson",
         "Age": 45,
+        "Name": "Bob",
         "Tlf": ["1234567890"]
     },
-
     {
-        "Id": 3,
-        "Name": "Alice",
+        "IdUsuari": 3,
         "Surname": "Williams",
         "Age": 32,
+        "Name": "Alice",
         "Tlf": ["0987654321"]
     },
     {
-        "Id": 4,
-        "Name": "Charlie",
+        "IdUsuari": 4,
         "Surname": "Brown",
         "Age": 28,
-        "Tlf": ["6623444324","2131321332","2062679823"]
+        "Name": "Charlie",
+        "Tlf": [
+            "6623444324",
+            "2131321332",
+            "2062679823"
+        ]
+    },
+    {
+        "IdUsuari": 5,
+        "nom": "Andrei",
+        "cognom": "Fernandez",
+        "Age": 25,
+        "DNI": "43724538T",
+        "Tlf": 432748943
     }
 ]

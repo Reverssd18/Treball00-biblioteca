@@ -832,10 +832,175 @@ public class Main {
 
     public static void afegirUsuaris() {
         System.out.println("Afegir usuaris");
+
+        System.out.println("Afegir usuaris");
+        System.out.println("Introdueix l'ID de l'usuari: ");
+        if (!scanner.hasNextInt()) {
+            System.out.println("Error: L'ID ha de ser un número");
+            scanner.next();
+            return;
+        }
+        Integer id = scanner.nextInt();
+        scanner.nextLine(); // limpiamos el buffer
+
+        System.out.println("Introdueix el nom de l'usuari: ");
+        String nom = scanner.nextLine();
+        System.out.println("Introdueix el cognom de l'usuari: ");
+        String cognom = scanner.nextLine();
+        System.out.println("Introdueix l'edat de l'usuari: ");
+        if (!scanner.hasNextInt()) {
+            System.out.println("Error: L'edat ha de ser un número");
+            scanner.next();
+            return;
+        }
+        Integer edat = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Introdueix el DNI de l'usuari: ");
+        String DNI = scanner.nextLine();
+        System.out.println("Introdueix el telèfon de l'usuari: ");
+        if (!scanner.hasNextInt()) {
+            System.out.println("Error: El telèfon ha de ser un número");
+            scanner.next();
+            return;
+        }
+
+        Integer tlf = scanner.nextInt();
+        scanner.nextLine();
+
+        if (edat < 10) {
+            System.out.println("Error: L'edat ha de ser més gran de 0");
+            return;
+        }
+        
+        if (nom.isEmpty() || cognom.isEmpty() || DNI.isEmpty()) {
+            System.out.println("Error: Has d'omplir tots els camps");
+            return;
+        }
+
+        if (id < 0) {
+            System.out.println("Error: L'ID ha de ser mes gran de 3000");
+            return;
+        }
+
+        // creamos un JSONObject con los datos del nuevo usuario
+        JSONObject nouUsuari = new JSONObject();
+        nouUsuari.put("IdUsuari", id);
+        nouUsuari.put("nom", nom);
+        nouUsuari.put("cognom", cognom);
+        nouUsuari.put("Age", edat);
+        nouUsuari.put("DNI", DNI);
+        nouUsuari.put("Tlf", tlf);
+
+        // ruta del archivo json
+        String ruta = "projecte-biblioteca/data/usuaris.json";
+
+        // leemos el archivo json y lo convertimos en un array
+        JSONArray usuaris = new JSONArray();
+
+        // leemos el archivo json
+        try {
+            File file = new File(ruta);
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of(ruta)));
+                usuaris = new JSONArray(content);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+
+        // Comprobamos si el ID ya existe
+        for (int i = 0; i < usuaris.length(); i++) {
+            JSONObject usuari = usuaris.getJSONObject(i);
+            if (usuari.getInt("IdUsuari") == id) {
+                System.out.println("Error: Ja existeix un usuari amb aquest ID");
+                return;
+            }
+        }
+
+        usuaris.put(nouUsuari);
+
+        try ( FileWriter writer = new FileWriter(ruta)) {
+            writer.write(usuaris.toString(4));
+        } catch (IOException e) {
+            System.out.println("Error al escriure el fitxer");
+        }
+        
+        System.out.println("Usuari afegit correctament");
+
+        menuPrincipal();
     }
 
     public static void modificarUsuaris() {
         System.out.println("Modificar usuaris");
+
+        System.out.println("Introdueix l'ID de l'usuari a modificar: ");
+        Integer id = scanner.nextInt();
+        scanner.nextLine(); // limpiamos el buffer
+
+        // declaramos un array para guardar los usuaris
+        JSONArray usuaris = new JSONArray();
+
+        // leemos el archivo json
+        try {
+            File file = new File("projecte-biblioteca/data/usuaris.json");
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of("projecte-biblioteca/data/usuaris.json")));
+                usuaris = new JSONArray(content);
+            }
+        } catch (IOException e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+
+        // buscamos el usuario con el id introducido
+        for (int i = 0; i < usuaris.length(); i ++) { 
+            JSONObject usuari = usuaris.getJSONObject(i); // getJSONObject(i) obtiene el objeto JSON de la posición i
+            if (usuari.getInt("IdUsuari") == id) {
+                System.out.println("Que vols modificar?");
+                System.out.println("1. Nom");
+                System.out.println("2. Cognom");
+                System.out.println("3. Edat");
+                System.out.println("4. DNI");
+                System.out.println("5. Telèfon");
+                System.out.println("0. Cancel·lar");
+                String opc = scanner.nextLine().toLowerCase().trim(); 
+                switch (opc) {
+                    case "0", "cancel·lar" -> { return; }
+                    case "1", "nom" -> {
+                        System.out.println("Escriu el nou nom: ");
+                        String nouNom = scanner.nextLine();
+                        usuari.put("nom", nouNom); // actualizamos el valor del nom
+                    }
+                    case "2", "cognom" -> {
+                        System.out.println("Escriu el nou cognom: ");
+                        String nouCognom = scanner.nextLine();
+                        usuari.put("cognom", nouCognom); 
+                    }
+                    case "3", "edat" -> {
+                        System.out.println("Escriu la nova edat: ");
+                        Integer novaEdat = scanner.nextInt();
+                        scanner.nextLine();
+                        usuari.put("Age", novaEdat); 
+                    }
+                    case "4", "dni" -> {
+                        System.out.println("Escriu el nou DNI: ");
+                        String nouDNI = scanner.nextLine();
+                        usuari.put("DNI", nouDNI); 
+                    }
+                    case "5", "telèfon" -> {
+                        System.out.println("Escriu el nou telèfon: ");
+                        Integer nouTlf = scanner.nextInt();
+                        scanner.nextLine();
+                        usuari.put("Tlf", nouTlf); 
+                    }
+                    default -> {
+                        System.out.println("Opció no vàlida. Torna a provar.");
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     public static void eliminarUsuaris() {
