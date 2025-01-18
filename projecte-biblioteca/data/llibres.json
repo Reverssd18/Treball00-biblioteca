@@ -49,14 +49,8 @@
     },
     {
         "titol": "Alicia en el Pais de las Maravillas",
-        "genre": "Literatura Infantil",
+        "genre": "Literatura",
         "id": 1013,
         "autor": "Lewis Carrol"
-    },
-    {
-        "titol": "El dia que se perdio la cordura",
-        "genre": "Misterio",
-        "id": 1014,
-        "autor": "Javier Castillo"
     }
 ]

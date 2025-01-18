@@ -2,15 +2,15 @@
     {
         "IdUsuari": 0,
         "cognom": "Doe",
-        "Age": 30,
         "nom": "John",
+        "Age": 30,
         "Tlf": []
     },
     {
         "IdUsuari": 1,
         "cognom": "Smith",
-        "Age": 25,
         "nom": "Jane",
+        "Age": 25,
         "Tlf": [
             "0123456789",
             "9876543210"
@@ -19,34 +19,26 @@
     {
         "IdUsuari": 2,
         "cognom": "Johnson",
-        "Age": 45,
         "nom": "Bob",
+        "Age": 45,
         "Tlf": ["1234567890"]
     },
     {
         "IdUsuari": 3,
         "cognom": "Williams",
-        "Age": 32,
         "nom": "Alice",
+        "Age": 32,
         "Tlf": ["0987654321"]
     },
     {
         "IdUsuari": 4,
         "cognom": "Brown",
-        "Age": 28,
         "nom": "Charlie",
+        "Age": 28,
         "Tlf": [
             "6623444324",
             "2131321332",
             "2062679823"
         ]
-    },
-    {
-        "IdUsuari": 5,
-        "nom": "Andrei",
-        "cognom": "Fernandez",
-        "Age": 25,
-        "DNI": "43724538T",
-        "Tlf": 432748943
     }
 ]
