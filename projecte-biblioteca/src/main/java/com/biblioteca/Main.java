@@ -374,6 +374,12 @@ public class Main {
             }
         } 
 
+        // guardamos el array actualizado en el archivo json
+        try {
+            Files.write(Path.of("projecte-biblioteca/data/llibres.json"), llibres.toString(4).getBytes());
+            System.out.println("Llibre modificat correctament");
+        } catch (IOException | JSONException e) {
+        }
         menuPrincipal();
     }
 
@@ -764,6 +770,80 @@ public class Main {
 
     public static void modificarUsuaris() {
         System.out.println("Modificar usuaris");
+
+        System.out.println("Introdueix l'ID de l'usuari a modificar: ");
+        Integer id = scanner.nextInt();
+        scanner.nextLine(); // limpiamos el buffer
+
+        // declaramos un array para guardar los usuaris
+        JSONArray usuaris = new JSONArray();
+
+        // leemos el archivo json
+        try {
+            File file = new File("projecte-biblioteca/data/usuaris.json");
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(Path.of("projecte-biblioteca/data/usuaris.json")));
+                usuaris = new JSONArray(content);
+            }
+        } catch (IOException e) {
+            System.out.println("Error al llegir el fitxer");
+        }
+
+        // buscamos el usuario con el id introducido
+        for (int i = 0; i < usuaris.length(); i ++) {
+            JSONObject usuari = usuaris.getJSONObject(i);
+            if (usuari.getInt("IdUsuari") == id) {
+                System.out.println("Que vols modificar?");
+                System.out.println("1. Nom");
+                System.out.println("2. Cognom");
+                System.out.println("3. Edat");
+                System.out.println("4. DNI");
+                System.out.println("5. Telèfon");
+                System.out.println("0. Cancel·lar");
+                String opc = scanner.nextLine().toLowerCase().trim();
+                switch (opc) {
+                    case "0" -> { return; }
+                    case "1", "nom" -> {
+                        System.out.println("Escriu el nom nou: ");
+                        String nouNom = scanner.nextLine();
+                        usuari.put("nom", nouNom); 
+                    }
+                    case "2", "cognom" -> {
+                        System.out.println("Escriu el cognom nou: ");
+                        String nouCognom = scanner.nextLine();
+                        usuari.put("cognom", nouCognom);
+                    }
+                    case "3", "edat" -> {
+                        System.out.println("Escriu la nova edat: ");
+                        Integer novaEdat = scanner.nextInt();
+                        usuari.put("Age", novaEdat);
+                    }
+                    case "4", "dni" -> {
+                        System.out.println("Escriu el nou DNI: ");
+                        String nouDNI = scanner.nextLine();
+                        usuari.put("DNI", nouDNI);
+                    }
+                    case "5", "telèfon" -> {
+                        System.out.println("Escriu el nou telèfon: ");
+                        Integer nouTlf = scanner.nextInt();
+                        usuari.put("Tlf", nouTlf);
+                    }
+                    default -> {
+                        System.out.println("Opció no vàlida. Torna a provar.");
+                        return;
+                    }
+                }
+            }
+        }
+
+        // guardamos el array actualizado en el archivo json
+        try {
+            Files.write(Path.of("projecte-biblioteca/data/usuaris.json"), usuaris.toString(4).getBytes());
+            System.out.println("Usuari modificat correctament");
+        } catch (IOException | JSONException e) {
+        }
+
+        menuPrincipal();
     }
 
     public static void eliminarUsuaris() {
