@@ -1103,6 +1103,7 @@ public class Main {
             }
         }
         System.out.println(result.toString());
+        menuLlistarUsuaris();
         return result.toString();
     }
 
@@ -1138,6 +1139,52 @@ public class Main {
                     result.append("\n");
                 }
             }
+        }
+        System.out.println(result.toString());
+        menuLlistarUsuaris();
+        return result.toString();
+    }
+
+    public static String llistarUsuarisAmbPrestecsForaTermini() {
+        JSONArray usuaris = getUsuaris();
+        JSONArray prestecs = getPrestecs();
+        StringBuilder result = new StringBuilder();
+
+        if (usuaris.length() == 0) {
+            return "No hi ha usuaris disponibles.\n";
+        }
+
+        String format = "%-10s %-30s %-30s %-10s %-10s%n";
+        result.append(String.format(format, "Id", "Nom", "Cognom", "Edat", "Telèfon"));
+        result.append(String.format(format, "--", "---", "------", "----", "------"));
+
+        boolean found = false;
+        for (int i = 0; i < usuaris.length(); i++) {
+            JSONObject usuari = usuaris.getJSONObject(i);
+            boolean foraTermini = false;
+            for (int j = 0; j < prestecs.length(); j++) {
+                JSONObject prestec = prestecs.getJSONObject(j);
+                if (prestec.getInt("id") == usuari.getInt("IdUsuari") &&
+                        !prestec.getString("dataDevolucio").isEmpty() &&
+                        LocalDate.parse(prestec.getString("dataDevolucio")).isBefore(LocalDate.now())) {
+                    foraTermini = true;
+                    break;
+                }
+            }
+            if (foraTermini) {
+                result.append(String.format(format,
+                        usuari.getInt("IdUsuari"),
+                        usuari.getString("nom"),
+                        usuari.getString("cognom"),
+                        usuari.getInt("Age"),
+                        usuari.getInt("Tlf")));
+                result.append("\n");
+                found = true;
+            }
+        }
+
+        if (!found) {
+            return "No hi ha usuaris amb préstecs fora de termini.\n";
         }
         System.out.println(result.toString());
         return result.toString();
