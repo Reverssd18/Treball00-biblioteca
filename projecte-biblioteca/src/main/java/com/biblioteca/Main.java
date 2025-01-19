@@ -1089,18 +1089,54 @@ public class Main {
         if (usuaris.length() == 0) {
             result.append("No hi ha usuaris disponibles.\n");
         } else {
-            String format = "%-10s %-30s %-30s %-10s %-15s %-10s%n";
-            result.append(String.format(format, "Id", "Nom", "Cognom", "Edat", "DNI", "Telèfon"));
-            result.append(String.format(format, "--", "---", "------", "----", "---", "------"));
+            String format = "%-10s %-30s %-30s %-10s %-10s%n";
+            result.append(String.format(format, "Id", "Nom", "Cognom", "Edat", "Telèfon"));
+            result.append(String.format(format, "--", "---", "------", "----", "------"));
             for (int i = 0; i < usuaris.length(); i++) {
                 result.append(String.format(format,
                         usuaris.getJSONObject(i).getInt("IdUsuari"),
                         usuaris.getJSONObject(i).getString("nom"),
                         usuaris.getJSONObject(i).getString("cognom"),
                         usuaris.getJSONObject(i).getInt("Age"),
-                        usuaris.getJSONObject(i).getString("DNI"),
                         usuaris.getJSONObject(i).getInt("Tlf")));
                 result.append("\n");
+            }
+        }
+        System.out.println(result.toString());
+        return result.toString();
+    }
+
+    public static String llistarUsuarisAmbPrestecs() {
+        JSONArray usuaris = getUsuaris();
+        JSONArray prestecs = getPrestecs();
+        StringBuilder result = new StringBuilder();
+        if (usuaris.length() == 0) {
+            result.append("No hi ha usuaris disponibles.\n");
+        } else {
+            String format = "%-10s %-30s %-30s %-10s %-10s%n";
+            result.append(String.format(format, "Id", "Nom", "Cognom", "Edat", "Telèfon"));
+            result.append(String.format(format, "--", "---", "------", "----", "------"));
+            for (int i = 0; i < usuaris.length(); i++) {
+                JSONObject usuari = usuaris.getJSONObject(i);
+                boolean hasActivePrestec = false;
+                for (int j = 0; j < prestecs.length(); j++) {
+                    JSONObject prestec = prestecs.getJSONObject(j);
+                    if (prestec.getInt("id") == usuari.getInt("IdUsuari") &&
+                            (prestec.getString("dataDevolucio").isEmpty() ||
+                                    LocalDate.parse(prestec.getString("dataDevolucio")).isAfter(LocalDate.now()))) {
+                        hasActivePrestec = true;
+                        break;
+                    }
+                }
+                if (hasActivePrestec) {
+                    result.append(String.format(format,
+                            usuari.getInt("IdUsuari"),
+                            usuari.getString("nom"),
+                            usuari.getString("cognom"),
+                            usuari.getInt("Age"),
+                            usuari.getInt("Tlf")));
+                    result.append("\n");
+                }
             }
         }
         System.out.println(result.toString());
