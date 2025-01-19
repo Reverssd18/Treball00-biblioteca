@@ -115,7 +115,24 @@ public class Main {
                 case "1", "afegir" -> afegirUsuaris();
                 case "2", "modificar" -> modificarUsuaris();
                 case "3", "eliminar" -> eliminarUsuaris();
-                case "4", "llistar" -> llistarUsuaris();
+                case "4", "llistar" -> menuLlistarUsuaris();
+                default -> error();
+            }
+            break;
+        }
+    }
+
+    public static void menuLlistarUsuaris() {
+        while (true) {
+            System.out.println("\n---Llistar usuaris---");
+            System.out.print(
+                    "1. Llistar usuaris\n2. Llistar usuaris amb préstecs actius\n3. Llistar usuaris amb préstecs fora de termini\n0. Tornar a Gestió d'usuaris\nEscull una opció:  ");
+            String opc = scanner.nextLine().toLowerCase();
+            switch (opc) {
+                case "0", "tornar" -> menuUsuaris();
+                case "1", "llistar" -> llistarUsuaris();
+                case "2", "prestec", "préstec" -> llistarUsuarisAmbPrestecs();
+                case "3", "termini" -> llistarUsuarisAmbPrestecsForaTermini();
                 default -> error();
             }
             break;
@@ -879,7 +896,7 @@ public class Main {
             System.out.println("Error: L'edat ha de ser més gran de 0");
             return;
         }
-        
+
         if (nom.isEmpty() || cognom.isEmpty() || DNI.isEmpty()) {
             System.out.println("Error: Has d'omplir tots els camps");
             return;
@@ -928,12 +945,12 @@ public class Main {
 
         usuaris.put(nouUsuari);
 
-        try ( FileWriter writer = new FileWriter(ruta)) {
+        try (FileWriter writer = new FileWriter(ruta)) {
             writer.write(usuaris.toString(4));
         } catch (IOException e) {
             System.out.println("Error al escriure el fitxer");
         }
-        
+
         System.out.println("Usuari afegit correctament");
 
         menuPrincipal();
@@ -961,7 +978,7 @@ public class Main {
         }
 
         // buscamos el usuario con el id introducido
-        for (int i = 0; i < usuaris.length(); i ++) { 
+        for (int i = 0; i < usuaris.length(); i++) {
             JSONObject usuari = usuaris.getJSONObject(i); // getJSONObject(i) obtiene el objeto JSON de la posición i
             if (usuari.getInt("IdUsuari") == id) {
                 System.out.println("Que vols modificar?");
@@ -971,9 +988,11 @@ public class Main {
                 System.out.println("4. DNI");
                 System.out.println("5. Telèfon");
                 System.out.println("0. Cancel·lar");
-                String opc = scanner.nextLine().toLowerCase().trim(); 
+                String opc = scanner.nextLine().toLowerCase().trim();
                 switch (opc) {
-                    case "0", "cancel·lar" -> { return; }
+                    case "0", "cancel·lar" -> {
+                        return;
+                    }
                     case "1", "nom" -> {
                         System.out.println("Escriu el nou nom: ");
                         String nouNom = scanner.nextLine();
@@ -982,24 +1001,24 @@ public class Main {
                     case "2", "cognom" -> {
                         System.out.println("Escriu el nou cognom: ");
                         String nouCognom = scanner.nextLine();
-                        usuari.put("cognom", nouCognom); 
+                        usuari.put("cognom", nouCognom);
                     }
                     case "3", "edat" -> {
                         System.out.println("Escriu la nova edat: ");
                         Integer novaEdat = scanner.nextInt();
                         scanner.nextLine();
-                        usuari.put("Age", novaEdat); 
+                        usuari.put("Age", novaEdat);
                     }
                     case "4", "dni" -> {
                         System.out.println("Escriu el nou DNI: ");
                         String nouDNI = scanner.nextLine();
-                        usuari.put("DNI", nouDNI); 
+                        usuari.put("DNI", nouDNI);
                     }
                     case "5", "telèfon" -> {
                         System.out.println("Escriu el nou telèfon: ");
                         Integer nouTlf = scanner.nextInt();
                         scanner.nextLine();
-                        usuari.put("Tlf", nouTlf); 
+                        usuari.put("Tlf", nouTlf);
                     }
                     default -> {
                         System.out.println("Opció no vàlida. Torna a provar.");
@@ -1064,8 +1083,113 @@ public class Main {
         menuPrincipal();
     }
 
-    public static void llistarUsuaris() {
-        System.out.println("Listar usuaris");
+    public static String llistarUsuaris() {
+        JSONArray usuaris = getUsuaris();
+        StringBuilder result = new StringBuilder();
+        if (usuaris.length() == 0) {
+            result.append("No hi ha usuaris disponibles.\n");
+        } else {
+            String format = "%-10s %-30s %-30s %-10s %-10s%n";
+            result.append(String.format(format, "Id", "Nom", "Cognom", "Edat", "Telèfon"));
+            result.append(String.format(format, "--", "---", "------", "----", "------"));
+            for (int i = 0; i < usuaris.length(); i++) {
+                result.append(String.format(format,
+                        usuaris.getJSONObject(i).getInt("IdUsuari"),
+                        usuaris.getJSONObject(i).getString("nom"),
+                        usuaris.getJSONObject(i).getString("cognom"),
+                        usuaris.getJSONObject(i).getInt("Age"),
+                        usuaris.getJSONObject(i).getJSONArray("Tlf")));
+                result.append("\n");
+            }
+        }
+        System.out.println(result.toString());
+        return result.toString();
+    }
+
+    public static String llistarUsuarisAmbPrestecs() {
+        JSONArray usuaris = getUsuaris();
+        JSONArray prestecs = getPrestecs();
+        StringBuilder result = new StringBuilder();
+        if (usuaris.length() == 0) {
+            result.append("No hi ha usuaris disponibles.\n");
+        } else {
+            String format = "%-10s %-30s %-30s %-10s %-30s%n";
+            result.append(String.format(format, "Id", "Nom", "Cognom", "Edat", "Telèfon"));
+            result.append(String.format(format, "--", "---", "------", "----", "------"));
+            for (int i = 0; i < usuaris.length(); i++) {
+                JSONObject usuari = usuaris.getJSONObject(i);
+                boolean hasActivePrestec = false;
+                for (int j = 0; j < prestecs.length(); j++) {
+                    JSONObject prestec = prestecs.getJSONObject(j);
+                    if (prestec.getString("dataDevolucio").isEmpty()
+                            || prestec.getString("dataDevolucio").equals("null")) {
+                        hasActivePrestec = true;
+                        break;
+                    }
+                }
+                if (hasActivePrestec) {
+                    result.append(String.format("%-10s %-30s %-30s %-10s %-30s%n",
+                            usuari.getInt("IdUsuari"),
+                            usuari.getString("nom"),
+                            usuari.getString("cognom"),
+                            usuari.getInt("Age"),
+                            usuari.getJSONArray("Tlf").toString()));
+                    result.append("\n");
+                }
+            }
+        }
+        System.out.println(result.toString());
+        return result.toString();
+    }
+
+    public static String llistarUsuarisAmbPrestecsForaTermini() {
+        JSONArray usuaris = getUsuaris();
+        JSONArray prestecs = getPrestecs();
+        StringBuilder result = new StringBuilder();
+
+        if (usuaris.length() == 0) {
+            return "No hi ha usuaris disponibles.\n";
+        }
+
+        String format = "%-10s %-30s %-30s %-10s %-30s %-10s%n";
+        result.append(String.format(format, "Id", "Nom", "Cognom", "Edat", "Llibre", "PrestecId"));
+        result.append(String.format(format, "--", "---", "------", "----", "------", "---------"));
+
+        boolean found = false;
+        for (int i = 0; i < usuaris.length(); i++) {
+            JSONObject usuari = usuaris.getJSONObject(i);
+            boolean foraTermini = false;
+            String llibreTitol = "";
+            Integer prestecId = -1;
+            for (int j = 0; j < prestecs.length(); j++) {
+                JSONObject prestec = prestecs.getJSONObject(j);
+                if (prestec.getInt("idPrestec") == usuari.getInt("idPrestec") &&
+                        !prestec.getString("dataDevolucio").isEmpty() &&
+                        LocalDate.parse(prestec.getString("dataDevolucio")).isBefore(LocalDate.now())) {
+                    foraTermini = true;
+                    llibreTitol = prestec.getString("titol");
+                    prestecId = prestec.getInt("idPrestec");
+                    break;
+                }
+            }
+            if (foraTermini) {
+                result.append(String.format(format,
+                        usuari.getInt("IdUsuari"),
+                        usuari.getString("nom"),
+                        usuari.getString("cognom"),
+                        usuari.getInt("Age"),
+                        llibreTitol,
+                        prestecId));
+
+                found = true;
+            }
+        }
+
+        if (!found) {
+            return "No hi ha usuaris amb préstecs fora de termini.\n";
+        }
+        System.out.println(result.toString());
+        return result.toString();
     }
 
     public static void error() {
