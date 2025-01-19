@@ -4,7 +4,8 @@
         "cognom": "Doe",
         "nom": "John",
         "Age": 30,
-        "Tlf": []
+        "Tlf": [],
+        "idPrestec": 2000
     },
     {
         "IdUsuari": 1,
@@ -14,21 +15,24 @@
         "Tlf": [
             "0123456789",
             "9876543210"
-        ]
+        ],
+        "idPrestec": 2000
     },
     {
         "IdUsuari": 2,
         "cognom": "Johnson",
         "nom": "Bob",
         "Age": 45,
-        "Tlf": ["1234567890"]
+        "Tlf": ["1234567890"],
+        "idPrestec": 2002
     },
     {
         "IdUsuari": 3,
         "cognom": "Williams",
         "nom": "Alice",
         "Age": 32,
-        "Tlf": ["0987654321"]
+        "Tlf": ["0987654321"],
+        "idPrestec": 2003
     },
     {
         "IdUsuari": 4,
@@ -39,6 +43,7 @@
             "6623444324",
             "2131321332",
             "2062679823"
-        ]
+        ],
+        "idPrestec": 2001
     }
 ]

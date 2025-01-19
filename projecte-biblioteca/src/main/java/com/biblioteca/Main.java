@@ -115,7 +115,7 @@ public class Main {
                 case "1", "afegir" -> afegirUsuaris();
                 case "2", "modificar" -> modificarUsuaris();
                 case "3", "eliminar" -> eliminarUsuaris();
-                case "4", "llistar" -> llistarUsuaris();
+                case "4", "llistar" -> menuLlistarUsuaris();
                 default -> error();
             }
             break;
@@ -1098,12 +1098,11 @@ public class Main {
                         usuaris.getJSONObject(i).getString("nom"),
                         usuaris.getJSONObject(i).getString("cognom"),
                         usuaris.getJSONObject(i).getInt("Age"),
-                        usuaris.getJSONObject(i).getInt("Tlf")));
+                        usuaris.getJSONObject(i).getJSONArray("Tlf")));
                 result.append("\n");
             }
         }
         System.out.println(result.toString());
-        menuLlistarUsuaris();
         return result.toString();
     }
 
@@ -1114,7 +1113,7 @@ public class Main {
         if (usuaris.length() == 0) {
             result.append("No hi ha usuaris disponibles.\n");
         } else {
-            String format = "%-10s %-30s %-30s %-10s %-10s%n";
+            String format = "%-10s %-30s %-30s %-10s %-30s%n";
             result.append(String.format(format, "Id", "Nom", "Cognom", "Edat", "Telèfon"));
             result.append(String.format(format, "--", "---", "------", "----", "------"));
             for (int i = 0; i < usuaris.length(); i++) {
@@ -1122,26 +1121,24 @@ public class Main {
                 boolean hasActivePrestec = false;
                 for (int j = 0; j < prestecs.length(); j++) {
                     JSONObject prestec = prestecs.getJSONObject(j);
-                    if (prestec.getInt("id") == usuari.getInt("IdUsuari") &&
-                            (prestec.getString("dataDevolucio").isEmpty() ||
-                                    LocalDate.parse(prestec.getString("dataDevolucio")).isAfter(LocalDate.now()))) {
+                    if (prestec.getString("dataDevolucio").isEmpty()
+                            || prestec.getString("dataDevolucio").equals("null")) {
                         hasActivePrestec = true;
                         break;
                     }
                 }
                 if (hasActivePrestec) {
-                    result.append(String.format(format,
+                    result.append(String.format("%-10s %-30s %-30s %-10s %-30s%n",
                             usuari.getInt("IdUsuari"),
                             usuari.getString("nom"),
                             usuari.getString("cognom"),
                             usuari.getInt("Age"),
-                            usuari.getInt("Tlf")));
+                            usuari.getJSONArray("Tlf").toString()));
                     result.append("\n");
                 }
             }
         }
         System.out.println(result.toString());
-        menuLlistarUsuaris();
         return result.toString();
     }
 
@@ -1154,20 +1151,24 @@ public class Main {
             return "No hi ha usuaris disponibles.\n";
         }
 
-        String format = "%-10s %-30s %-30s %-10s %-10s%n";
-        result.append(String.format(format, "Id", "Nom", "Cognom", "Edat", "Telèfon"));
-        result.append(String.format(format, "--", "---", "------", "----", "------"));
+        String format = "%-10s %-30s %-30s %-10s %-30s %-10s%n";
+        result.append(String.format(format, "Id", "Nom", "Cognom", "Edat", "Llibre", "PrestecId"));
+        result.append(String.format(format, "--", "---", "------", "----", "------", "---------"));
 
         boolean found = false;
         for (int i = 0; i < usuaris.length(); i++) {
             JSONObject usuari = usuaris.getJSONObject(i);
             boolean foraTermini = false;
+            String llibreTitol = "";
+            Integer prestecId = -1;
             for (int j = 0; j < prestecs.length(); j++) {
                 JSONObject prestec = prestecs.getJSONObject(j);
-                if (prestec.getInt("id") == usuari.getInt("IdUsuari") &&
+                if (prestec.getInt("idPrestec") == usuari.getInt("idPrestec") &&
                         !prestec.getString("dataDevolucio").isEmpty() &&
                         LocalDate.parse(prestec.getString("dataDevolucio")).isBefore(LocalDate.now())) {
                     foraTermini = true;
+                    llibreTitol = prestec.getString("titol");
+                    prestecId = prestec.getInt("idPrestec");
                     break;
                 }
             }
@@ -1177,8 +1178,9 @@ public class Main {
                         usuari.getString("nom"),
                         usuari.getString("cognom"),
                         usuari.getInt("Age"),
-                        usuari.getInt("Tlf")));
-                result.append("\n");
+                        llibreTitol,
+                        prestecId));
+
                 found = true;
             }
         }
