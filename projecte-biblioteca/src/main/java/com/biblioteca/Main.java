@@ -157,15 +157,15 @@ public class Main {
     }
 
     public static JSONArray getLlibres() {
-        return llegirJSONambPath("projecte-biblioteca/data/llibres.json");
+        return llegirJSONambPath("./data/llibres.json");
     }
 
     public static JSONArray getPrestecs() {
-        return llegirJSONambPath("projecte-biblioteca/data/prestecs.json");
+        return llegirJSONambPath("./data/prestecs.json");
     }
 
     public static JSONArray getUsuaris() {
-        return llegirJSONambPath("projecte-biblioteca/data/usuaris.json");
+        return llegirJSONambPath("./data/usuaris.json");
     }
 
     public static String llistarLlibres() {
