@@ -156,15 +156,15 @@ public class Main {
         return jsonArray;
     }
 
-    public static JSONArray getLlibres() {
+    private static JSONArray getLlibres() {
         return llegirJSONambPath("./data/llibres.json");
     }
 
-    public static JSONArray getPrestecs() {
+    private static JSONArray getPrestecs() {
         return llegirJSONambPath("./data/prestecs.json");
     }
 
-    public static JSONArray getUsuaris() {
+    private static JSONArray getUsuaris() {
         return llegirJSONambPath("./data/usuaris.json");
     }
 
@@ -324,7 +324,7 @@ public class Main {
         }
 
         // ruta del archivo json
-        String ruta = "projecte-biblioteca/data/llibres.json";
+        String ruta = "./data/llibres.json";
 
         // leemos el archivo json y lo convertimos en un array
         JSONArray llibres = new JSONArray();
@@ -431,7 +431,7 @@ public class Main {
 
         // guardamos el array actualizado en el archivo json
         try {
-            Files.write(Path.of("projecte-biblioteca/data/llibres.json"), llibres.toString(4).getBytes());
+            Files.write(Path.of("./data/llibres.json"), llibres.toString(4).getBytes());
             System.out.println("Llibre modificat correctament");
         } catch (IOException e) {
             System.out.println("Error al escriure el fitxer");
@@ -446,7 +446,7 @@ public class Main {
         scanner.nextLine(); // limpiamos el buffer
 
         // ruta del archivo json
-        String ruta = "projecte-biblioteca/data/llibres.json";
+        String ruta = "./data/llibres.json";
 
         // declaramos un array para guardar los llibres
         JSONArray llibres = new JSONArray();
@@ -495,7 +495,7 @@ public class Main {
         String dataDevolucio = scanner.nextLine();
 
         // ruta del archivo json
-        String llibresRuta = "projecte-biblioteca/data/llibres.json";
+        String llibresRuta = "./data/llibres.json";
 
         // declaramos un array para guardar los llibres
         JSONArray llibres = new JSONArray();
@@ -564,7 +564,7 @@ public class Main {
         }
 
         // ruta del archivo json
-        String prestecsRuta = "projecte-biblioteca/data/prestecs.json";
+        String prestecsRuta = "./data/prestecs.json";
         JSONArray prestecs = new JSONArray();
 
         // leemos el archivo json
@@ -614,7 +614,7 @@ public class Main {
         scanner.nextLine(); // limpiamos el buffer
 
         // ruta del archivo json
-        String ruta = "projecte-biblioteca/data/prestecs.json";
+        String ruta = "./data/prestecs.json";
 
         // declaramos un array para guardar los préstecs
         JSONArray prestecs = new JSONArray();
@@ -675,7 +675,7 @@ public class Main {
         System.out.println("Introdueix l'ID del préstec a eliminar: ");
         Integer idPrestc = scanner.nextInt();
 
-        String ruta = "projecte-biblioteca/data/prestecs.json";
+        String ruta = "./data/prestecs.json";
 
         JSONArray prestecs = new JSONArray();
 
@@ -917,7 +917,7 @@ public class Main {
         nouUsuari.put("Tlf", tlf);
 
         // ruta del archivo json
-        String ruta = "projecte-biblioteca/data/usuaris.json";
+        String ruta = "./data/usuaris.json";
 
         // leemos el archivo json y lo convertimos en un array
         JSONArray usuaris = new JSONArray();
@@ -968,9 +968,9 @@ public class Main {
 
         // leemos el archivo json
         try {
-            File file = new File("projecte-biblioteca/data/usuaris.json");
+            File file = new File("./data/usuaris.json");
             if (file.exists()) {
-                String content = new String(Files.readAllBytes(Path.of("projecte-biblioteca/data/usuaris.json")));
+                String content = new String(Files.readAllBytes(Path.of("./data/usuaris.json")));
                 usuaris = new JSONArray(content);
             }
         } catch (IOException e) {
@@ -1030,7 +1030,7 @@ public class Main {
 
         // guardamos el array actualizado en el archivo json
         try {
-            Files.write(Path.of("projecte-biblioteca/data/usuaris.json"), usuaris.toString(4).getBytes());
+            Files.write(Path.of("./data/usuaris.json"), usuaris.toString(4).getBytes());
             System.out.println("Usuari modificat correctament");
         } catch (IOException e) {
             System.out.println("Error al escriure el fitxer");
@@ -1047,7 +1047,7 @@ public class Main {
         scanner.nextLine(); // limpiamos el buffer
 
         // ruta del archivo json
-        String ruta = "projecte-biblioteca/data/usuaris.json";
+        String ruta = "./data/usuaris.json";
 
         // declaramos un array para guardar los usuaris
         JSONArray usuaris = new JSONArray();

@@ -19,8 +19,7 @@ cd "$PROJECT_DIR" || { echo "Error: No se pudo acceder al directorio $PROJECT_DI
 
 # Paso 2: Compilar el proyecto con Maven
 echo "Compilando el proyecto con Maven..."
-mvn clean compile
-if [ $? -ne 0 ]; then
+if ! mvn clean compile; then
   echo "Error durante la compilación."
   exit 1
 fi
@@ -28,7 +27,7 @@ fi
 # Paso 3: Ejecutar la aplicación principal con la clase proporcionada
 echo "Ejecutando la clase principal: $MAIN_CLASS"
 mvn exec:java -Dexec.mainClass="$MAIN_CLASS"
-if [ $? -ne 0 ]; then
+if ! mvn exec:java -Dexec.mainClass="$MAIN_CLASS"; then
   echo "Error durante la ejecución de la aplicación."
   exit 1
 fi
