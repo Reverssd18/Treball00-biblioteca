@@ -19,14 +19,14 @@ public class Main {
 
     public static void menuPrincipal() {
         while (true) {
-            System.out.println("\n---Gestió de biblioteca---");
-            System.out.print("1. Llibres\n2. Usuaris\n3. Préstecs\n0. Sortir\nEscull una opció:  ");
+            System.out.println("\n---Gestio de biblioteca---");
+            System.out.print("1. Llibres\n2. Usuaris\n3. Prestecs\n0. Sortir\nEscull una opcio:  ");
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0", "sortir" -> System.exit(0);
                 case "1", "llibres" -> menuLlibres();
                 case "2", "usuaris" -> menuUsuaris();
-                case "3", "prestecs", "préstecs" -> menuPrestecs();
+                case "3", "prestecs" -> menuPrestecs();
                 default -> error();
             }
         }
@@ -34,9 +34,9 @@ public class Main {
 
     public static void menuLlibres() {
         while (true) {
-            System.out.println("\n---Gestió de llibres---");
+            System.out.println("\n---Gestio de llibres---");
             System.out.print(
-                    "1. Afegir llibre\n2. Modificar llibre\n3. Eliminar llibre\n4. Llistar llibre\n0. Tornar al menú principal\nEscull una opció:  ");
+                    "1. Afegir llibre\n2. Modificar llibre\n3. Eliminar llibre\n4. Llistar llibre\n0. Tornar al menu principal\nEscull una opcio:  ");
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0", "tornar" -> menuPrincipal();
@@ -54,14 +54,14 @@ public class Main {
         while (true) {
             System.out.println("\n---Llistar llibres---");
             System.out.print(
-                    "1. Llistar llibres\n2. Llistar llibres en préstec\n3. Llistar llibres d'un autor\n4. Llistar llibres a partir de paraules al títol\n0. Tornar a Gestió de llibres\nEscull una opció:  ");
+                    "1. Llistar llibres\n2. Llistar llibres en prestec\n3. Llistar llibres d'un autor\n4. Llistar llibres a partir de paraules al titol\n0. Tornar a Gestio de llibres\nEscull una opcio:  ");
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0", "tornar" -> menuLlibres();
                 case "1", "llistar" -> llistarLlibres();
-                case "2", "prestec", "préstec" -> System.out.println(llistarLlibresPrestec());
+                case "2", "prestec" -> System.out.println(llistarLlibresPrestec());
                 case "3", "autor" -> llistarLlibresAutor();
-                case "4", "paraules", "titol", "títol" -> llistarLlibresTitol();
+                case "4", "paraules", "titol" -> llistarLlibresTitol();
                 default -> error();
             }
             break;
@@ -70,9 +70,9 @@ public class Main {
 
     public static void menuPrestecs() {
         while (true) {
-            System.out.println("\n---Gestió de Préstecs---");
+            System.out.println("\n---Gestio de Prestecs---");
             System.out.print(
-                    "1. Afegir préstec\n2. Modificar préstec\n3. Eliminar préstec\n4. Llistar préstec\n0. Tornar al menú principal\nEscull una opció:  ");
+                    "1. Afegir prestec\n2. Modificar prestec\n3. Eliminar prestec\n4. Llistar prestec\n0. Tornar al menu principal\nEscull una opcio:  ");
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0", "tornar" -> menuPrincipal();
@@ -88,9 +88,9 @@ public class Main {
 
     public static void menuLlistarPrestecs() {
         while (true) {
-            System.out.println("\n---Llistar préstecs---");
+            System.out.println("\n---Llistar prestecs---");
             System.out.print(
-                    "1. Llistar préstecs\n2. LListar préstecs d'un usuari\n3. Llistar préstecs actius\n4. Llistar préstecs fora de termini\n0. Tornar a Gestió de préstecs\nEscull una opció:  ");
+                    "1. Llistar prestecs\n2. LListar prestecs d'un usuari\n3. Llistar prestecs actius\n4. Llistar prestecs fora de termini\n0. Tornar a Gestio de prestecs\nEscull una opcio:  ");
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0", "tornar" -> menuPrestecs();
@@ -106,9 +106,9 @@ public class Main {
 
     public static void menuUsuaris() {
         while (true) {
-            System.out.println("\n---Gestió de Usuaris---");
+            System.out.println("\n---Gestio de Usuaris---");
             System.out.print(
-                    "1. Afegir usuaris\n2. Modificar usuaris\n3. Eliminar usuaris\n4. Llistar usuaris\n0. Tornar al menú principal\nEscull una opció:  ");
+                    "1. Afegir usuaris\n2. Modificar usuaris\n3. Eliminar usuaris\n4. Llistar usuaris\n0. Tornar al menu principal\nEscull una opcio:  ");
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0", "tornar" -> menuPrincipal();
@@ -126,12 +126,12 @@ public class Main {
         while (true) {
             System.out.println("\n---Llistar usuaris---");
             System.out.print(
-                    "1. Llistar usuaris\n2. Llistar usuaris amb préstecs actius\n3. Llistar usuaris amb préstecs fora de termini\n0. Tornar a Gestió d'usuaris\nEscull una opció:  ");
+                    "1. Llistar usuaris\n2. Llistar usuaris amb prestecs actius\n3. Llistar usuaris amb prestecs fora de termini\n0. Tornar a Gestio d'usuaris\nEscull una opcio:  ");
             String opc = scanner.nextLine().toLowerCase();
             switch (opc) {
                 case "0", "tornar" -> menuUsuaris();
                 case "1", "llistar" -> llistarUsuaris();
-                case "2", "prestec", "préstec" -> llistarUsuarisAmbPrestecs();
+                case "2", "prestec" -> llistarUsuarisAmbPrestecs();
                 case "3", "termini" -> llistarUsuarisAmbPrestecsForaTermini();
                 default -> error();
             }
