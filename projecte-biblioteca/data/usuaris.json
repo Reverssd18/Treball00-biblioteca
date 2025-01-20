@@ -1,41 +1,42 @@
 [
     {
         "IdUsuari": 0,
+        "idPrestec": 2000,
         "cognom": "Doe",
         "nom": "John",
         "Age": 30,
-        "Tlf": [],
-        "idPrestec": 2000
+        "Tlf": []
     },
     {
         "IdUsuari": 1,
+        "idPrestec": 2000,
         "cognom": "Smith",
         "nom": "Jane",
         "Age": 25,
         "Tlf": [
             "0123456789",
             "9876543210"
-        ],
-        "idPrestec": 2000
+        ]
     },
     {
         "IdUsuari": 2,
+        "idPrestec": 2002,
         "cognom": "Johnson",
         "nom": "Bob",
         "Age": 45,
-        "Tlf": ["1234567890"],
-        "idPrestec": 2002
+        "Tlf": ["1234567890"]
     },
     {
         "IdUsuari": 3,
+        "idPrestec": 2003,
         "cognom": "Williams",
         "nom": "Alice",
         "Age": 32,
-        "Tlf": ["0987654321"],
-        "idPrestec": 2003
+        "Tlf": ["0987654321"]
     },
     {
         "IdUsuari": 4,
+        "idPrestec": 2001,
         "cognom": "Brown",
         "nom": "Charlie",
         "Age": 28,
@@ -43,7 +44,13 @@
             "6623444324",
             "2131321332",
             "2062679823"
-        ],
-        "idPrestec": 2001
+        ]
+    },
+    {
+        "IdUsuari": 23,
+        "nom": "dawda",
+        "cognom": "dawdcwawca",
+        "Age": 44,
+        "Tlf": ["41241442"]
     }
 ]

@@ -880,8 +880,6 @@ public class Main {
         Integer edat = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Introdueix el DNI de l'usuari: ");
-        String DNI = scanner.nextLine();
         System.out.println("Introdueix el telèfon de l'usuari: ");
         if (!scanner.hasNextInt()) {
             System.out.println("Error: El telèfon ha de ser un número");
@@ -889,15 +887,14 @@ public class Main {
             return;
         }
 
-        Integer tlf = scanner.nextInt();
-        scanner.nextLine();
+        String tlf = scanner.nextLine();
 
         if (edat < 10) {
             System.out.println("Error: L'edat ha de ser més gran de 0");
             return;
         }
 
-        if (nom.isEmpty() || cognom.isEmpty() || DNI.isEmpty()) {
+        if (nom.isEmpty() || cognom.isEmpty() ) {
             System.out.println("Error: Has d'omplir tots els camps");
             return;
         }
@@ -913,7 +910,6 @@ public class Main {
         nouUsuari.put("nom", nom);
         nouUsuari.put("cognom", cognom);
         nouUsuari.put("Age", edat);
-        nouUsuari.put("DNI", DNI);
         nouUsuari.put("Tlf", tlf);
 
         // ruta del archivo json
@@ -985,8 +981,7 @@ public class Main {
                 System.out.println("1. Nom");
                 System.out.println("2. Cognom");
                 System.out.println("3. Edat");
-                System.out.println("4. DNI");
-                System.out.println("5. Telèfon");
+                System.out.println("4. Telèfon");
                 System.out.println("0. Cancel·lar");
                 String opc = scanner.nextLine().toLowerCase().trim();
                 switch (opc) {
@@ -1009,12 +1004,7 @@ public class Main {
                         scanner.nextLine();
                         usuari.put("Age", novaEdat);
                     }
-                    case "4", "dni" -> {
-                        System.out.println("Escriu el nou DNI: ");
-                        String nouDNI = scanner.nextLine();
-                        usuari.put("DNI", nouDNI);
-                    }
-                    case "5", "telèfon" -> {
+                    case "4", "telèfon" -> {
                         System.out.println("Escriu el nou telèfon: ");
                         Integer nouTlf = scanner.nextInt();
                         scanner.nextLine();
